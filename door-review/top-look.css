@@ -1,0 +1,51 @@
+/* A single-screen visual study. Door geometry and direct manipulation stay shared. */
+.chamber { background: #17120e; }
+.chamber-wall { display: none; }
+.bread { width: 100%; height: 100%; object-position: 52% 60%; }
+.chamber-vignette {
+  background: linear-gradient(90deg,rgba(19,15,11,.55),transparent 62%),linear-gradient(0deg,rgba(19,15,11,.82),transparent 26%,transparent 78%,rgba(19,15,11,.35));
+}
+.bread-info { inset: 0; color: #f3e9d4; }
+.hero-masthead { position: absolute; top: max(35px,5.5vh); left: 6.2%; right: 6.2%; display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.bread-info .hero-brand { margin: 0; font: 700 clamp(20px,2.2vw,29px)/1.5 "Shippori Mincho B1",serif; letter-spacing: .14em; }
+.bread-info .hero-place { margin: 0; font-size: 11px; letter-spacing: .2em; }
+.bread-info h1 { position: absolute; left: 6.2%; top: 24%; margin: 0; font-size: clamp(45px,4.3vw,66px); font-weight: 700; line-height: 1.65; letter-spacing: .1em; writing-mode: vertical-rl; }
+.bread-info h1 span { display: block; }
+.hero-note { position: absolute; left: 7.6%; bottom: 16%; }
+.bread-info .hero-note p { margin: 0; font-size: 14px; line-height: 2.2; letter-spacing: .15em; }
+.bread-info .hero-note .hero-since { margin-top: 6px; font-size: 11px; letter-spacing: .12em; opacity: .75; }
+.bread-info .hero-disclaimer { position: absolute; right: 6.2%; bottom: 7%; margin: 0; font-size: 10px; letter-spacing: .05em; opacity: .7; }
+.oven[data-view="inside"] .demo-label { visibility: hidden; }
+.oven[data-view="inside"] .fixed-controls { left: 6.2%; right: 6.2%; bottom: max(18px,env(safe-area-inset-bottom)); }
+.oven[data-view="inside"] .toggle-door { font-size: 11px; color: #f3e9d4; }
+@media (max-width:600px) {
+  .bread { inset: auto 0 0; width: 100%; height: 82%; object-position: 51% 100%; }
+  .chamber-vignette { background: linear-gradient(180deg,#17120e 5%,rgba(23,18,14,.88) 18%,transparent 40%,transparent 64%,rgba(23,18,14,.84) 91%,#17120e 100%); }
+  .bread-info { inset: 0; }
+  .hero-masthead { top: max(38px,6.2vh); left: 8%; right: 8%; gap: 10px; align-items: center; }
+  .bread-info .hero-brand { font-size: clamp(17px,4.8vw,23px); letter-spacing: .07em; }
+  .bread-info .hero-place { font-size: 9px; letter-spacing: .12em; }
+  .bread-info h1 { left: 9%; top: 16.5%; font-size: clamp(40px,11.3vw,62px); line-height: 1.55; letter-spacing: .09em; white-space: nowrap; writing-mode: horizontal-tb; }
+  .hero-note { left: 9.5%; bottom: 12.5%; }
+  .bread-info .hero-note p { font-size: 12px; letter-spacing: .08em; }
+  .bread-info .hero-note .hero-since { margin-top: 3px; font-size: 10px; letter-spacing: .07em; }
+  .bread-info .hero-disclaimer { left: 9.5%; right: auto; bottom: 6.5%; font-size: 8px; }
+  .oven[data-view="inside"] .fixed-controls { left: 9%; right: 8%; bottom: max(10px,env(safe-area-inset-bottom)); }
+}
+@media (max-height:600px) and (max-width:600px) {
+  .hero-masthead { top: 5.5%; }
+  .bread-info h1 { top: 14%; font-size: 37px; line-height: 1.45; }
+  .hero-note { bottom: 14%; }
+  .bread-info .hero-note p { font-size: 11px; }
+  .bread-info .hero-note .hero-since { font-size: 9px; }
+  .bread-info .hero-disclaimer { bottom: 8.5%; }
+}
+@media (max-height:500px) and (min-aspect-ratio:1/1) {
+  .hero-masthead { top: 6%; }
+  .bread-info .hero-brand { font-size: 20px; }
+  .bread-info h1 { top: 20%; font-size: 28px; line-height: 1.45; writing-mode: vertical-rl; }
+  .hero-note { bottom: 16%; }
+  .bread-info .hero-note p { font-size: 11px; line-height: 1.7; }
+  .bread-info .hero-note .hero-since { font-size: 9px; margin-top: 4px; }
+  .bread-info .hero-disclaimer { bottom: 16%; }
+}
