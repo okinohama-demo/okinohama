@@ -1,8 +1,8 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f6f6f0"><title>おきのはま製パン｜窯から、店先へ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="door.css?v=solid3"><link rel="stylesheet" href="top-look.css?v=look1"><link rel="stylesheet" href="top-unified.css?v=unified1"><link rel="stylesheet" href="atmosphere-study.css?v=atmosphere1">
+<link rel="stylesheet" href="door.css?v=solid3"><link rel="stylesheet" href="top-look.css?v=look1"><link rel="stylesheet" href="top-unified.css?v=unified1"><link rel="stylesheet" href="atmosphere-study.css?v=atmosphere2">
 <link rel="modulepreload" href="door-unified-scene.mjs?v=unified1"><link rel="preload" href="assets/open/morning-batch-v1.webp" as="image">
-</head><body class="atmosphere-study"><main>  <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="atmosphere-study-v1" data-renderer="loading">
+</head><body class="atmosphere-study"><main>  <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="atmosphere-study-v2" data-renderer="loading">
     <section class="chamber" aria-labelledby="bread-title">
       <div class="chamber-wall wall-left" aria-hidden="true"></div>
       <div class="chamber-wall wall-right" aria-hidden="true"></div>
@@ -33,12 +33,13 @@
 
 
 <div id="chapters" hidden inert>
+<nav class="chapter-nav" aria-label="ページ内の案内" hidden inert><a href="#today">パン</a><a href="#story">手紙</a><a href="#delivery">パン便</a><a href="#shop">店</a></nav>
 <section class="counter-scene" id="today" aria-labelledby="today-title">
   <header class="section-head"><div><p class="eyebrow">毎日のパン</p><h2 id="today-title">朝から順に、<br>焼いています。</h2></div><p class="quiet-copy">窯から出たら、いつもの場所へ。<br>今日のパンを、ゆっくりどうぞ。</p></header>
   <figure class="counter-photo"><img src="assets/open/bakery-counter-v1.webp" width="1536" height="1024" alt="朝の光が入る木の台に、食パン、あんパン、塩パンが並ぶ売り場" loading="lazy"><figcaption>徳島・沖浜町　おきのはま製パン</figcaption></figure>
   <div class="shelf-heading"><p>焼き上がりの順に</p><div class="shelf-arrows"><button type="button" data-step="-1" aria-label="前のパンを見る" aria-controls="bread-shelf">←</button><button type="button" data-step="1" aria-label="次のパンを見る" aria-controls="bread-shelf">→</button></div></div>
   <div class="bread-shelf" id="bread-shelf" tabindex="0" role="region" aria-label="パンの棚。横にスクロールして選べます"></div>
-  <p class="shelf-note"><span id="shelf-position">1 / 6</span><span>横に送って、パンを選ぶ　↔</span></p>
+  <p class="shelf-note"><span id="shelf-position" aria-live="polite" aria-atomic="true">1 / 6</span><span>横に送って、パンを選ぶ　↔</span></p>
   <p class="fine-print">焼き上がりは目安です。商品・価格は制作見本です。</p>
 </section>
 <section class="hands-scene" id="story" aria-labelledby="story-title">
@@ -55,5 +56,5 @@
   <div class="shop-information"><div><p class="eyebrow">店の案内</p><h2 id="shop-title">沖浜町で、<br>朝七時から。</h2><p class="shop-hours">7:00–18:00</p><p>日曜・月曜休み</p><p class="fine-print">売り切れ次第、早く閉める日があります。</p></div><dl><div><dt>住所</dt><dd>徳島県徳島市沖浜町二丁目18-3<br><small>見本用の架空住所です。</small></dd></div><div><dt>駐車場</dt><dd>店の東側に3台<br>自転車置き場あり</dd></div><div><dt>支払い</dt><dd>現金・クレジットカード・交通系IC</dd></div></dl></div>
   <footer><p>おきのはま製パン</p><a href="#oven">窯へ戻る ↑</a><small>架空の店の制作見本。写真は生成画像です。</small></footer>
 </section>
-</div></main><nav class="chapter-nav" aria-label="ページ内の案内" hidden inert><a href="#today">パン</a><a href="#story">手紙</a><a href="#delivery">パン便</a><a href="#shop">店</a></nav>
-<script type="module" src="door-unified.mjs?v=unified1"></script><script type="module" src="atmosphere-study.mjs?v=atmosphere1"></script></body></html>
+</div></main>
+<script type="module" src="door-unified.mjs?v=unified1"></script><script type="module" src="atmosphere-study.mjs?v=atmosphere2"></script></body></html>
