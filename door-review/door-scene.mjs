@@ -155,6 +155,13 @@ export async function createOvenScene(canvas, onFailure) {
     scene.updateMatrixWorld(true);
     invalidate();
   }
+  function setViewProgress(value) {
+    // The physical door finishes first; the casing then passes outside the viewport.
+    camera.zoom = 1 + .9 * value;
+    camera.updateProjectionMatrix();
+    shadowMaterial.opacity = .25 * (1 - value);
+    invalidate();
+  }
   function gripBounds() {
     let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
     for (const x of [-doorWidth*.43,doorWidth*.43]) for (const y of [arm-.025,arm+.025]) for (const z of [gripDepth-.012,gripDepth+.012]) {
@@ -182,5 +189,5 @@ export async function createOvenScene(canvas, onFailure) {
     [face,edge,interior,rubber,grip,screw,glassMaterial,shadowMaterial].forEach(material=>material.dispose());
     steelTexture.dispose(); renderer.dispose();
   }
-  return { resize,setProgress,gripBounds,pick,dispose };
+  return { resize,setProgress,setViewProgress,gripBounds,pick,dispose };
 }

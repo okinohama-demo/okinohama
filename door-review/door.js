@@ -6,7 +6,30 @@ const motion=matchMedia('(prefers-reduced-motion: reduce)'),note=document.getEle
 const help=document.getElementById('gesture-help'),renderNote=document.getElementById('render-note');
 let progress=0,width=1,height=1,drag=null,tween=0,lastPointerMove=-1000,motionAllowed=false;
 let engine=null,failed=false,gripBounds=null,baseHandleWidth=1;
+let view=0,viewTween=0;
 const isCalm=()=>motion.matches&&!motionAllowed;
+function stopViewTween(){cancelAnimationFrame(viewTween);viewTween=0;}
+function renderView(value){
+  view=clamp(value);
+  oven.style.setProperty('--view-zoom',(1+.9*view).toFixed(5));
+  oven.dataset.view=view>=.999999?'inside':view<=.000001?'framed':'passage';
+  if(view>0&&document.activeElement===handle)toggle.focus({preventScroll:true});
+  handle.inert=view>0;
+  handle.tabIndex=view>0?-1:0;
+  handle.setAttribute('aria-hidden',view>0?'true':'false');
+  if(engine){engine.setViewProgress(view);positionHandle();}
+}
+function moveView(target,animate=true,done){
+  stopViewTween();
+  if(!animate||isCalm()||failed||Math.abs(target-view)<.00001){renderView(target);done?.();return;}
+  const from=view,begin=performance.now(),duration=(target===1?480:340)*Math.max(.25,Math.abs(target-from));
+  const frame=(now)=>{
+    const t=clamp((now-begin)/duration);
+    renderView(from+(target-from)*(t*t*(3-2*t)));
+    if(t<1)viewTween=requestAnimationFrame(frame);else{viewTween=0;done?.();}
+  };
+  viewTween=requestAnimationFrame(frame);
+}
 function positionHandle() {
   if(!engine)return;
   gripBounds=engine.gripBounds();
@@ -27,16 +50,23 @@ function render(value) {
 }
 function announce() {status.textContent=progress<.01?'扉を閉めました。':progress>.99?'扉を開けました。':'扉はこの位置で止まっています。';}
 function stopTween(){cancelAnimationFrame(tween);tween=0;}
-function setProgress(value,animate=false) {
+function animateDoor(value,animate=false) {
   stopTween();
-  if(!animate||isCalm()||failed){render(value);announce();return;}
+  if(!animate||isCalm()||failed){render(value);announce();if(progress>=.999)moveView(1,false);return;}
   const from=progress,to=clamp(value),begin=performance.now(),duration=800*Math.max(.4,Math.abs(to-from));
   const frame=(now)=>{
     const t=clamp((now-begin)/duration);
     render(from+(to-from)*(t*t*(3-2*t)));
-    if(t<1)tween=requestAnimationFrame(frame);else{tween=0;announce();}
+    if(t<1)tween=requestAnimationFrame(frame);else{tween=0;announce();if(progress>=.999)moveView(1,true);}
   };
   tween=requestAnimationFrame(frame);
+}
+function setProgress(value,animate=false){
+  stopTween();stopViewTween();
+  const target=clamp(value);
+  if(view>0&&target<.999){moveView(0,animate,()=>animateDoor(target,animate));return;}
+  if(progress>=.999&&target>=.999){moveView(1,animate);return;}
+  animateDoor(target,animate);
 }
 function endDrag(event) {
   if(!drag||event.pointerId!==drag.id)return;
@@ -44,10 +74,11 @@ function endDrag(event) {
   if(drag.moved)lastPointerMove=performance.now();
   const pointerId=drag.id;drag=null;delete oven.dataset.dragging;
   if(oven.hasPointerCapture(pointerId))oven.releasePointerCapture(pointerId);
-  if(tappedHandle)setProgress(progress>.5?0:1,true);else announce();
+  if(tappedHandle)setProgress(progress>.5?0:1,true);
+  else{announce();if(event.type==='pointerup'&&progress>=.995){render(1);moveView(1,true);}}
 }
 oven.addEventListener('pointerdown',(event)=>{
-  if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||event.target.closest('button'))return;
+  if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||view>0||viewTween||event.target.closest('button'))return;
   const onHandle=!!event.target.closest('#handle');
   const hit=onHandle?{depth:gripBounds.depth,hinge:gripBounds.hinge,onHandle:true}:engine.pick(event.clientX,event.clientY);
   if(!hit)return;
@@ -89,14 +120,16 @@ function resize() {
   if(w===width&&h===height)return;
   if(drag)endDrag({pointerId:drag.id});
   width=w;height=h;
+  oven.style.setProperty('--viewport-center-y',`${height/2}px`);
   if(engine){
     engine.resize(width,height);
-    const old=progress;engine.setProgress(0);baseHandleWidth=engine.gripBounds().width;handle.style.width=`${baseHandleWidth}px`;engine.setProgress(old);positionHandle();
+    const old=progress;engine.setViewProgress(0);engine.setProgress(0);baseHandleWidth=engine.gripBounds().width;handle.style.width=`${baseHandleWidth}px`;engine.setProgress(old);engine.setViewProgress(view);positionHandle();
   }
 }
 function motionChanged() {
-  stopTween();if(drag)endDrag({pointerId:drag.id});
+  stopTween();stopViewTween();if(drag)endDrag({pointerId:drag.id});
   if(isCalm())render(progress>.5?1:0);
+  if(isCalm()||view>0||failed)renderView(progress>=.999?1:0);
   oven.dataset.motion=isCalm()?'reduced':'full';
   help.textContent=isCalm()||failed?'取っ手をタップして、開ける':'取っ手を下に引いて、開ける';
   document.getElementById('motion-message').textContent=motionAllowed?'扉の動きを表示しています。':'動きを減らす設定になっています。';
@@ -107,10 +140,10 @@ new ResizeObserver(resize).observe(oven);
 motion.addEventListener('change',()=>{motionAllowed=false;motionChanged();});
 document.getElementById('motion-toggle').addEventListener('click',()=>{motionAllowed=!motionAllowed;motionChanged();});
 function renderFailed(){
-  stopTween();if(drag)endDrag({pointerId:drag.id});
+  stopTween();stopViewTween();if(drag)endDrag({pointerId:drag.id});
   engine=null;failed=true;oven.dataset.renderer='fallback';renderNote.hidden=false;
   handle.style.width='84%';handle.style.transform='translate(50vw,30vh) translate(-50%,-50%)';
-  help.style.transform='translateY(35vh)';motionChanged();render(progress>.5?1:0);
+  help.style.transform='translateY(35vh)';motionChanged();render(progress>.5?1:0);renderView(progress>=.999?1:0);
 }
 const ticks=document.getElementById('ticks');
 for(let i=0;i<=30;i++){
@@ -118,8 +151,8 @@ for(let i=0;i<=30;i++){
   line.setAttribute('x1',50+Math.sin(a)*r);line.setAttribute('y1',50-Math.cos(a)*r);line.setAttribute('x2',50+Math.sin(a)*38);line.setAttribute('y2',50-Math.cos(a)*38);ticks.append(line);
 }
 resize();motionChanged();render(0);
-import('./door-scene.mjs?v=solid2').then(async({createOvenScene})=>{
+import('./door-scene.mjs?v=solid3').then(async({createOvenScene})=>{
   engine=await createOvenScene(canvas,renderFailed);
   engine.resize(width,height);engine.setProgress(0);baseHandleWidth=engine.gripBounds().width;handle.style.width=`${baseHandleWidth}px`;
-  oven.dataset.renderer='webgl';render(progress);
+  oven.dataset.renderer='webgl';render(progress);renderView(view);
 }).catch(renderFailed);
