@@ -1,0 +1,123 @@
+.hero-masthead { right: calc(6.2% + 60px); flex-wrap: wrap; row-gap: 4px; }
+html.has-review-dialog { overflow: hidden; scrollbar-gutter: stable; }
+.bread-delivery { padding: 84px 6.2% 34px; color: #382b1d; background: #d8bd95; }
+.bread-delivery[hidden],.bakery-shop[hidden],.bakery-footer[hidden],.chapter-button[hidden] { display: none; }
+.delivery-heading { max-width: 1120px; margin: auto; display: grid; grid-template-columns: 1.3fr 1fr; column-gap: 6%; align-items: end; }
+.delivery-heading > p:first-child { grid-column: 1/-1; margin: 0 0 22px; font-size: 12px; letter-spacing: .18em; }
+.delivery-heading h2 { margin: 0; font: 700 clamp(32px,3.5vw,48px)/1.65 "Shippori Mincho B1",serif; letter-spacing: .07em; }
+.delivery-intro { margin: 0 0 9px; font-size: 13px; line-height: 2.1; }
+.delivery-parcel { max-width: 1120px; margin: 45px auto; display: grid; grid-template-columns: 1.3fr 1fr; align-items: start; gap: 6%; }
+.parcel-photo { margin: 0; }
+.parcel-photo img { display: block; width: 100%; height: auto; }
+.parcel-photo figcaption { margin-top: 15px; font-size: 10px; line-height: 1.8; opacity: .8; }
+.parcel-category { margin: 0 0 13px; font-size: 11px; letter-spacing: .1em; }
+.parcel-order h3 { margin: 0; font: 700 clamp(27px,2.8vw,37px)/1.55 "Shippori Mincho B1",serif; letter-spacing: .07em; }
+.parcel-price { margin: 23px 0 0; display: flex; gap: 8px; align-items: baseline; }
+.parcel-price span { font-size: 12px; }
+.parcel-price strong { font: 44px/1.1 Georgia,serif; }
+.parcel-tax { margin: 8px 0 21px; font-size: 10px; }
+.parcel-list { border-top: 1px solid #9e835e; padding-top: 13px; }
+.parcel-list summary { cursor: pointer; font-size: 11px; min-height: 32px; }
+.parcel-list ul { list-style: none; padding: 0; margin: 0 0 21px; }
+.parcel-list li { display: flex; justify-content: space-between; gap: 18px; margin-top: 9px; font-size: 12px; }
+.parcel-list b { white-space: nowrap; font-weight: 500; }
+.parcel-button { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; min-height: 52px; padding: 13px 20px; border: 0; background: #3e5048; color: #f5ecd9; font-size: 12px; cursor: pointer; }
+.parcel-button:focus-visible,.bread-delivery a:focus-visible,.bakery-shop a:focus-visible,.bakery-footer a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.delivery-terms { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 30px; max-width: 1120px; margin: 0 auto; border-top: 1px solid #9e835e; padding-top: 24px; }
+.delivery-terms dt { margin-bottom: 12px; font-size: 10px; }
+.delivery-terms dd { margin: 0; font-size: 16px; line-height: 1.8; }
+.delivery-terms small { display: block; font-size: 10px; }
+.delivery-footer { max-width: 1120px; margin: 30px auto 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.delivery-footer p { margin: 0; font-size: 9px; line-height: 1.9; }
+.delivery-footer a { display: inline-flex; align-items: center; gap: 35px; min-height: 44px; color: inherit; text-decoration: none; font-size: 11px; white-space: nowrap; }
+.bakery-shop { padding: 76px 6.2% 62px; background: #3e5048; color: #f1e7d2; }
+.shop-scene { max-width: 1120px; margin: auto; display: grid; grid-template-columns: .75fr 1.6fr; align-items: center; gap: 5%; }
+.shop-heading > p:first-child { margin: 0 0 24px; font-size: 12px; letter-spacing: .18em; }
+.shop-heading h2 { margin: 0; font: 700 clamp(28px,3vw,42px)/1.7 "Shippori Mincho B1",serif; letter-spacing: .06em; }
+.shop-heading > p:last-child { margin: 27px 0 0; font-size: 12px; line-height: 2; }
+.shop-front { position: relative; margin: 0; }
+.shop-front img { width: 100%; height: auto; display: block; }
+.shop-sign { position: absolute; top: 16.2%; left: 50%; transform: translate(-50%,-50%); color: #e3d9bc; font: 700 clamp(14px,1.55vw,24px)/1.1 "Shippori Mincho B1",serif; letter-spacing: .16em; white-space: nowrap; text-shadow: 0 1px 2px #000; }
+.shop-information { max-width: 1120px; margin: 48px auto 0; display: grid; grid-template-columns: 1fr 1.15fr; gap: 9%; border-top: 1px solid #cbd5ca55; padding-top: 35px; }
+.shop-hours > p:first-child { margin: 0 0 16px; font-size: 11px; }
+.shop-hours strong { display: block; font: 44px/1.2 Georgia,serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.shop-hours .shop-holidays { margin: 19px 0 11px; font-size: 16px; }
+.shop-hours small { font-size: 10px; line-height: 1.8; }
+.shop-facts { margin: 0; }
+.shop-facts > div { display: grid; grid-template-columns: 60px 1fr; gap: 16px; margin-bottom: 24px; }
+.shop-facts dt { font-size: 10px; padding-top: 3px; }
+.shop-facts dd { margin: 0; font-size: 12px; line-height: 1.9; }
+.shop-facts small { display: block; font-size: 10px; opacity: .75; }
+.bakery-footer { padding: 40px 6.2% 35px; background: #202a25; color: #e8e0cc; }
+.footer-brand { max-width: 1120px; margin: 0 auto 24px; font: 700 24px/1.5 "Shippori Mincho B1",serif; letter-spacing: .1em; }
+.bakery-footer nav { max-width: 1120px; margin: auto; display: flex; gap: 25px; flex-wrap: wrap; }
+.bakery-footer a { display: inline-flex; align-items: center; min-height: 44px; font-size: 11px; color: inherit; text-decoration: none; }
+.footer-legal { max-width: 1120px; margin: 25px auto 0; font-size: 9px; line-height: 2; opacity: .7; }
+.chapter-button { position: fixed; top: max(10px,env(safe-area-inset-top)); right: 14px; z-index: 8; min-height: 44px; padding: 8px 14px; border: 1px solid #e6e5d755; color: #eee6d4; background: #202a25e8; font-size: 11px; cursor: pointer; }
+.review-dialog { color-scheme: light; width: min(440px,90vw); max-height: 90svh; overflow: auto; padding: 25px 28px 28px; border: 0; background: #f0e8d8; color: #352c21; }
+.review-dialog::backdrop { background: #131a16a6; }
+.dialog-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 22px; }
+.dialog-top h2 { margin: 0; font: 700 23px/1.5 "Shippori Mincho B1",serif; }
+.dialog-top button { min-width: 44px; min-height: 44px; border: 0; background: transparent; font-size: 25px; color: inherit; cursor: pointer; }
+.chapter-dialog nav { display: grid; }
+.chapter-dialog nav a { display: flex; justify-content: space-between; align-items: center; min-height: 60px; border-top: 1px solid #b9a991; color: inherit; text-decoration: none; font-size: 17px; }
+.dialog-product { margin: 0 0 20px; font-size: 14px; }
+.dialog-product small { display: block; font-size: 10px; margin-top: 8px; }
+.quantity-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+.quantity-row > span,.region-label { font-size: 12px; }
+.quantity-row > div { display: flex; align-items: center; gap: 16px; }
+.quantity-row button { width: 44px; height: 44px; background: none; border: 1px solid #b9a991; color: inherit; font-size: 20px; cursor: pointer; }
+.quantity-row button:disabled { opacity: .3; cursor: default; }
+.quantity-row output { min-width: 15px; text-align: center; font-variant-numeric: tabular-nums; }
+.region-label { display: block; margin-bottom: 10px; }
+#shipping-region { font: inherit; font-size: 12px; width: 100%; min-height: 48px; padding: 9px 12px; color: inherit; background: transparent; border: 1px solid #b9a991; }
+.parcel-totals { margin: 24px 0 19px; }
+.parcel-totals > div { display: flex; justify-content: space-between; gap: 25px; padding: 10px 0; font-size: 12px; }
+.parcel-totals dd { margin: 0; font-variant-numeric: tabular-nums; }
+.parcel-totals .grand-total { border-top: 1px solid #b9a991; padding-top: 19px; margin-top: 8px; align-items: baseline; }
+.grand-total dd { font-size: 24px; }
+.cart-demo { margin: 0 0 18px; font-size: 10px; line-height: 1.8; }
+.review-dialog :focus-visible,.chapter-button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (max-width:700px) {
+  .bread-delivery { padding: 50px 8% 25px; }
+  .delivery-heading { display: block; }
+  .delivery-heading > p:first-child { font-size: 10px; margin-bottom: 18px; }
+  .delivery-heading h2 { font-size: clamp(26px,7vw,36px); line-height: 1.65; }
+  .delivery-intro { font-size: 11px; margin: 20px 0 0; line-height: 2; }
+  .delivery-parcel { display: block; margin: 28px auto; }
+  .parcel-photo { margin: 0 -9.52% 29px; }
+  .parcel-photo figcaption { margin: 12px 8% 0; font-size: 9px; }
+  .parcel-order h3 { font-size: 30px; }
+  .parcel-category { font-size: 10px; }
+  .parcel-price { margin-top: 19px; }
+  .parcel-list li { font-size: 12px; }
+  .delivery-terms { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 23px 15px; }
+  .delivery-terms dt { font-size: 9px; margin-bottom: 9px; }
+  .delivery-terms dd { font-size: 13px; }
+  .delivery-terms small { font-size: 9px; }
+  .delivery-footer { display: block; margin-top: 24px; }
+  .delivery-footer a { margin-top: 16px; }
+  .bakery-shop { padding: 48px 8% 39px; }
+  .shop-scene { display: block; }
+  .shop-heading > p:first-child { font-size: 10px; margin-bottom: 18px; }
+  .shop-heading h2 { font-size: 30px; line-height: 1.65; }
+  .shop-heading > p:last-child { margin: 18px 0 25px; font-size: 11px; }
+  .shop-heading > p:last-child br { display: none; }
+  .shop-front { margin: 0 -9.52%; }
+  .shop-sign { font-size: 14px; }
+  .shop-information { display: block; margin-top: 28px; padding-top: 26px; }
+  .shop-hours strong { font-size: clamp(33px,10vw,43px); }
+  .shop-hours .shop-holidays { font-size: 14px; }
+  .shop-hours small { font-size: 9px; }
+  .shop-facts { margin-top: 31px; }
+  .shop-facts > div { grid-template-columns: 42px 1fr; gap: 12px; margin-bottom: 19px; }
+  .shop-facts dd { font-size: 11px; }
+  .shop-facts small { font-size: 9px; }
+  .bakery-footer { padding: 31px 8% 27px; }
+  .footer-brand { font-size: 20px; margin-bottom: 13px; }
+  .bakery-footer nav { column-gap: 20px; row-gap: 0; }
+  .bakery-footer a { font-size: 10px; }
+  .footer-legal { font-size: 8px; }
+  .review-dialog { padding: 17px 20px 22px; }
+  .dialog-top h2 { font-size: 21px; }
+}
