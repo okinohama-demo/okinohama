@@ -1,0 +1,67 @@
+body.bread-journey { background: #e6dbc6; }
+.bread-journey .oven { position: relative; inset: auto; width: 100%; height: 100svh; }
+body.bread-journey.has-entered { height: auto; overflow: visible; }
+.hero-next { position: absolute; left: 7.6%; bottom: 6%; display: inline-flex; gap: 34px; align-items: center; min-height: 44px; color: inherit; font-size: 12px; letter-spacing: .1em; text-decoration: none; pointer-events: auto; }
+.hero-next span { font-size: 22px; }
+.hero-next[inert] { visibility: hidden; }
+.hero-next:focus-visible,.daily-breads button:focus-visible,.daily-breads a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.daily-breads { padding: 88px max(6.2vw,24px) 25px; color: #352c21; background: #e6dbc6; }
+.daily-breads[hidden] { display: none; }
+.daily-heading { max-width: 1120px; margin: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.daily-kicker { margin: 0 0 23px; font-size: 12px; letter-spacing: .2em; }
+.daily-heading h2 { margin: 0; font: 700 clamp(32px,3.5vw,48px)/1.65 "Shippori Mincho B1",serif; letter-spacing: .1em; }
+.daily-guide { margin: 0 0 9px; font-size: 12px; line-height: 2; letter-spacing: .07em; }
+.bake-navigation { max-width: 1120px; margin: 48px auto 0; }
+.bake-navigation > p { margin: 0 0 11px; font-size: 10px; letter-spacing: .12em; }
+.bake-times { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); }
+.bake-times button { position: relative; min-width: 0; min-height: 53px; padding: 8px 0 19px; color: #675b49; border: 0; background: none; cursor: pointer; text-align: center; }
+.bake-times time { font-family: Georgia,serif; font-variant-numeric: tabular-nums; font-size: 21px; }
+.bake-times button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: #b9a991; }
+.bake-times button span { position: absolute; width: 7px; height: 7px; left: calc(50% - 3.5px); bottom: 1px; border-radius: 50%; background: #b9a991; z-index: 1; }
+.bake-times button[aria-pressed="true"] { color: #352c21; }
+.bake-times button[aria-pressed="true"] time { font-weight: bold; }
+.bake-times button[aria-pressed="true"] span { width: 11px; height: 11px; left: calc(50% - 5.5px); bottom: -1px; background: #62442c; }
+.bread-selection { max-width: 1120px; margin: 26px auto 45px; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 5%; min-height: 460px; overflow-anchor: none; }
+.bread-portrait { margin: 0; width: 100%; aspect-ratio: 1.08; }
+.bread-portrait svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+.bread-description { padding: 15px 0; }
+.selected-bake { display: flex; align-items: baseline; gap: 12px; margin: 0 0 21px; }
+.selected-bake time { font: 30px/1 Georgia,serif; font-variant-numeric: tabular-nums; }
+.selected-bake span { font-size: 11px; }
+.bread-description h3 { min-height: 3.1em; margin: 0 0 20px; font: 700 clamp(26px,2.8vw,38px)/1.55 "Shippori Mincho B1",serif; letter-spacing: .06em; }
+#selected-description { min-height: 4.2em; margin: 0; font-size: 13px; line-height: 2.1; letter-spacing: .04em; }
+.selected-price { display: flex; gap: 8px; align-items: baseline; margin: 24px 0 0; }
+.selected-price span { font-size: 11px; }
+.selected-price strong { font: 400 37px/1.2 Georgia,serif; }
+.daily-footer { max-width: 1120px; margin: auto; padding-top: 23px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-top: 1px solid #b9a991; }
+.daily-footer p { font-size: 10px; line-height: 2; margin: 0; color: #675b49; }
+.daily-footer a { display: inline-flex; align-items: center; gap: 30px; min-height: 44px; color: inherit; font-size: 11px; text-decoration: none; white-space: nowrap; }
+.mobile-break { display: none; }
+@media (max-width:600px) {
+  .hero-next { left: 9.5%; bottom: 4.2%; font-size: 10px; gap: 20px; }
+  .bread-journey .hero-disclaimer { bottom: 1.8%; }
+  .daily-breads { padding: 44px 8% 22px; }
+  .daily-heading { display: block; }
+  .daily-kicker { font-size: 10px; margin-bottom: 15px; }
+  .daily-heading h2 { font-size: clamp(27px,7.3vw,36px); line-height: 1.5; }
+  .daily-guide { margin: 16px 0 0; font-size: 10px; line-height: 1.9; }
+  .daily-guide br { display: none; }
+  .bake-navigation { margin-top: 22px; margin-left: -5px; margin-right: -5px; }
+  .bake-navigation > p { font-size: 9px; }
+  .bake-times time { font-size: clamp(12px,3.8vw,17px); }
+  .bake-times button { min-height: 48px; }
+  .bread-selection { grid-template-columns: 1fr; gap: 0; margin-top: 13px; margin-bottom: 30px; min-height: 0; }
+  .bread-portrait { width: 105%; margin-left: -2.5%; aspect-ratio: 1.18; }
+  .bread-description { padding: 0; }
+  .selected-bake { margin-bottom: 12px; gap: 8px; }
+  .selected-bake time { font-size: 24px; }
+  .selected-bake span { font-size: 10px; }
+  .bread-description h3 { min-height: 3.1em; font-size: 28px; margin-bottom: 15px; }
+  #selected-description { min-height: 4.2em; font-size: 12px; }
+  .selected-price { margin-top: 18px; }
+  .selected-price strong { font-size: 34px; }
+  .daily-footer { display: block; padding-top: 18px; }
+  .daily-footer p { font-size: 9px; }
+  .daily-footer a { margin-top: 17px; font-size: 10px; }
+  .mobile-break { display: inline; }
+}
