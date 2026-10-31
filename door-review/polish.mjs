@@ -1,4 +1,6 @@
 import { PARCEL_PRICE, SHIPPING, parcelTotals, yen } from './bakery-data.mjs?v=polish1';
+import { enterBakery } from './door.js?v=quality2';
+import { setupBakeryNavigation } from './bakery-navigation.mjs?v=quality2';
 const oven = document.getElementById('oven');
 const chapters = [...document.querySelectorAll('[data-after-entry]')];
 const menuButton = document.getElementById('chapter-button');
@@ -16,6 +18,7 @@ new MutationObserver(updateChapters).observe(oven,{attributes:true,attributeFilt
 updateChapters();
 function openDialog(dialog) {
   dialog.showModal();
+  dialog.scrollTop = 0;
   document.documentElement.classList.add('has-review-dialog');
 }
 dialogs.forEach(dialog=>dialog.addEventListener('close',()=>{
@@ -24,7 +27,9 @@ dialogs.forEach(dialog=>dialog.addEventListener('close',()=>{
 menuButton.addEventListener('click',()=>openDialog(menu));
 document.getElementById('parcel-total').addEventListener('click',()=>openDialog(parcel));
 document.querySelectorAll('[data-close-dialog]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
-menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>menu.close()));
+menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{
+  if(!event.defaultPrevented&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey&&event.button===0) menu.close();
+}));
 
 let quantity = 1;
 const minus = document.getElementById('quantity-minus');
@@ -46,13 +51,4 @@ plus.addEventListener('click',()=>{quantity = Math.min(5,quantity + 1); updateTo
 region.addEventListener('change',updateTotals);
 updateTotals();
 
-// Keep native hash navigation, then put keyboard/screen-reader focus in its destination.
-document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
-  if(event.defaultPrevented||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey||event.button>0) return;
-  const target = document.getElementById(link.getAttribute('href').slice(1));
-  if(!target) return;
-  const heading = target.id === 'oven' ? document.getElementById('toggle-door') : target.querySelector('h2');
-  if(!heading) return;
-  if(heading.tagName !== 'BUTTON') heading.tabIndex = -1;
-  requestAnimationFrame(()=>{if(!target.hidden) heading.focus({preventScroll:true});});
-}));
+setupBakeryNavigation({oven,enterBakery});

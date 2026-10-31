@@ -31,6 +31,14 @@ h2[tabindex="-1"]:focus-visible { outline: 2px solid currentColor; outline-offse
 #shipping-region { font-size: 16px; }
 .quantity-row output,.parcel-totals dd { font-variant-numeric: tabular-nums; }
 .chapter-dialog nav a { font-size: 18px; }
+.fixed-controls { gap: 12px; }
+.skip-door { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; color: #efe6d3; font-size: 12px; line-height: 1.6; text-decoration: underline; text-underline-offset: 5px; text-shadow: 0 1px 3px #000; pointer-events: auto; }
+.skip-door:focus-visible { outline: 2px solid #e6d2a5; outline-offset: 4px; }
+.oven[data-view="inside"] .skip-door { visibility: hidden; pointer-events: none; }
+.chapter-button { right: max(14px,env(safe-area-inset-right)); font-size: 12px; }
+.hero-masthead { top: max(35px,5.5svh,calc(env(safe-area-inset-top) + 12px)); }
+.bread-info .hero-disclaimer { font-size: 11px; }
+.review-dialog { max-height: min(90svh,calc(100svh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px)); scroll-padding-block-start: 84px; }
 @media (hover:hover) {
   .parcel-button:hover { background: #2e4137; }
   .bake-times button:hover { color: #251c11; }
@@ -58,4 +66,14 @@ h2[tabindex="-1"]:focus-visible { outline: 2px solid currentColor; outline-offse
   .story-footer a,.daily-footer a,.delivery-footer a { min-height: 44px; }
   .bakery-footer nav { gap: 4px 20px; }
   .footer-legal { font-size: 11px; }
+}
+@media (max-width:600px) {
+  .hero-masthead { top: max(38px,6.2svh,calc(env(safe-area-inset-top) + 12px)); }
+  .hero-note { bottom: calc(12.5% + env(safe-area-inset-bottom)); }
+  .hero-next { bottom: max(4.2svh,calc(env(safe-area-inset-bottom) + 28px)); }
+  .bread-journey .hero-disclaimer { bottom: max(1.8svh,calc(env(safe-area-inset-bottom) + 8px)); }
+}
+@media (max-height:600px) and (max-width:600px) {
+  .hero-masthead { top: max(5.5svh,calc(env(safe-area-inset-top) + 12px)); }
+  .hero-note { bottom: calc(14% + env(safe-area-inset-bottom)); }
 }

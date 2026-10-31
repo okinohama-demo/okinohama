@@ -68,6 +68,8 @@ function setProgress(value,animate=false){
   if(progress>=.999&&target>=.999){moveView(1,animate);return;}
   animateDoor(target,animate);
 }
+// Direct chapter links and the skip link enter without replaying the door motion.
+export function enterBakery(){setProgress(1,false);}
 function endDrag(event) {
   if(!drag||event.pointerId!==drag.id)return;
   const tappedHandle=!drag.moved&&drag.onHandle&&event.type==='pointerup';
@@ -78,7 +80,7 @@ function endDrag(event) {
   else{announce();if(event.type==='pointerup'&&progress>=.995){render(1);moveView(1,true);}}
 }
 oven.addEventListener('pointerdown',(event)=>{
-  if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||view>0||viewTween||event.target.closest('button'))return;
+  if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||view>0||viewTween||event.target.closest('button,a'))return;
   const onHandle=!!event.target.closest('#handle');
   const hit=onHandle?{depth:gripBounds.depth,hinge:gripBounds.hinge,onHandle:true}:engine.pick(event.clientX,event.clientY);
   if(!hit)return;

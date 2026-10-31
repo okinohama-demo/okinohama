@@ -8,19 +8,23 @@
   <meta name="description" content="取っ手を引いて、焼きたてのパンに会いに。架空のパン屋「おきのはま製パン」の制作見本。">
   <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/open/morning-batch-v1.webp" as="image">
+  <link rel="preload" href="assets/open/steel.webp" as="image">
+  <link rel="modulepreload" href="door-scene.mjs?v=solid3">
+  <link rel="modulepreload" href="vendor/three.module.min.js">
   <link rel="stylesheet" href="door.css?v=solid3">
   <link rel="stylesheet" href="top-look.css?v=look1">
   <link rel="stylesheet" href="bread-look.css?v=breads1">
   <link rel="stylesheet" href="story-look.css?v=story1">
   <link rel="stylesheet" href="complete-look.css?v=complete1">
-  <link rel="stylesheet" href="polish.css?v=polish1">
+  <link rel="stylesheet" href="polish.css?v=quality2">
   <link rel="stylesheet" href="door-loading.css?v=frame1">
 </head>
 <body class="bread-journey">
   <main class="bakery-page">
-  <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="polish-v2" data-renderer="loading">
+  <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="polish-v3" data-renderer="loading">
     <section class="chamber" aria-labelledby="bread-title">
       <div class="chamber-wall wall-left" aria-hidden="true"></div>
       <div class="chamber-wall wall-right" aria-hidden="true"></div>
@@ -52,7 +56,7 @@
           <img src="assets/open/handle.webp" alt="" width="672" height="98" draggable="false">
         </div>
         <p class="door-instruction" id="gesture-help">取っ手を下に引いて、開ける</p>
-    <div class="fixed-controls"><span class="demo-label">制作見本</span><button class="toggle-door" id="toggle-door" type="button" aria-controls="door-leaf">タップで開ける</button></div>
+    <div class="fixed-controls"><a class="skip-door" href="#today">扉を動かさず、パンを見る</a><button class="toggle-door" id="toggle-door" type="button" aria-controls="door-leaf">タップで開ける</button></div>
     <div class="motion-note" id="motion-note" hidden><span id="motion-message">動きを減らす設定になっています。</span><button type="button" id="motion-toggle">扉の動きを試す</button></div>
     <p class="render-note" id="render-note" hidden>立体表示を読み込めませんでした。右下のボタンで扉を開閉できます。</p>
     <p class="sr-only" id="door-status" role="status" aria-live="polite"></p>
@@ -107,7 +111,7 @@
       <header class="delivery-heading"><p>沖浜から、全国へ</p><h2 id="delivery-title">金曜に焼いて、<br>冷凍便で食卓へ。</h2><p class="delivery-intro">いつものパンを焼いて、急速冷凍。<br>その日のうちに箱へ詰めて発送します。</p></header>
       <div class="delivery-parcel">
         <figure class="parcel-photo"><img src="assets/open/bread-parcel-v1.webp" alt="山型食パン1斤、塩パン2個、あんパン2個、鳴門金時2個、くるみのパン1個を詰めた箱" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>箱の中身を見せるための盛り付け例です。<br>発送時は個包装します。</figcaption></figure>
-        <div class="parcel-order"><p class="parcel-category">冷凍便・金曜発送</p><h3>沖浜いつもの<br>パン便</h3><p class="parcel-price"><span>8点入り</span><strong data-set-price>2,040</strong><span>円</span></p><p class="parcel-tax">税込・送料別</p><p class="parcel-rate">送料<span data-shipping="standard">980円</span>。<br>北海道・沖縄は<span data-shipping="remote">1,480円</span>。</p><button class="parcel-button" id="parcel-total" type="button">送料込みの合計を見る <span aria-hidden="true">↗</span></button><details class="parcel-list" open><summary>箱に入るパン</summary><ul><li><span>沖浜の朝・山型食パン</span><b>1斤</b></li><li><span>沖浜塩パン</span><b>2個</b></li><li><span>自家炊きあんパン</span><b>2個</b></li><li><span>鳴門金時の小さな山</span><b>2個</b></li><li><span>阿波晩茶とくるみ</span><b>1個</b></li></ul></details></div>
+        <div class="parcel-order"><p class="parcel-category">冷凍便・金曜発送</p><h3>沖浜いつもの<br>パン便</h3><p class="parcel-price"><span>8点入り</span><strong data-set-price>2,040</strong><span>円</span></p><p class="parcel-tax">税込・送料別</p><p class="parcel-rate">送料<span data-shipping="standard">980円</span>。<br>北海道・沖縄は<span data-shipping="remote">1,480円</span>。</p><button class="parcel-button" id="parcel-total" type="button" aria-haspopup="dialog" aria-controls="parcel-dialog">送料込みの合計を見る <span aria-hidden="true">↗</span></button><details class="parcel-list" open><summary>箱に入るパン</summary><ul><li><span>沖浜の朝・山型食パン</span><b>1斤</b></li><li><span>沖浜塩パン</span><b>2個</b></li><li><span>自家炊きあんパン</span><b>2個</b></li><li><span>鳴門金時の小さな山</span><b>2個</b></li><li><span>阿波晩茶とくるみ</span><b>1個</b></li></ul></details></div>
       </div>
       <dl class="delivery-terms"><div><dt>注文締切</dt><dd>水曜 18:00</dd></div><div><dt>発送</dt><dd>毎週 金曜</dd></div><div><dt>送料</dt><dd><span data-shipping="standard">980円</span><small>北海道・沖縄は<span data-shipping="remote">1,480円</span></small></dd></div><div><dt>保存</dt><dd>製造日から冷凍で14日<small>解凍後は当日中</small></dd></div></dl>
       <footer class="delivery-footer"><p>価格・送料・発送条件は見本用です。<br>注文・決済はできません。</p><a href="#shop">店の案内へ <span aria-hidden="true">↓</span></a></footer>
@@ -120,11 +124,11 @@
   </main>
   <button class="chapter-button" id="chapter-button" type="button" aria-haspopup="dialog" aria-controls="chapter-dialog" hidden>案内</button>
   <dialog class="review-dialog chapter-dialog" id="chapter-dialog" aria-labelledby="chapter-title"><div class="dialog-top"><h2 id="chapter-title">ご案内</h2><button type="button" data-close-dialog aria-label="案内を閉じる">×</button></div><nav aria-label="章を選ぶ"><a href="#today">今日のパン <span aria-hidden="true">↗</span></a><a href="#story">店の話 <span aria-hidden="true">↗</span></a><a href="#delivery">全国便 <span aria-hidden="true">↗</span></a><a href="#shop">店の案内 <span aria-hidden="true">↗</span></a><a href="#oven">ページの先頭へ <span aria-hidden="true">↑</span></a></nav></dialog>
-  <dialog class="review-dialog parcel-dialog" id="parcel-dialog" aria-labelledby="parcel-dialog-title"><div class="dialog-top"><h2 id="parcel-dialog-title">パン便の合計</h2><button type="button" data-close-dialog aria-label="合計を閉じる">×</button></div><p class="dialog-product">沖浜いつものパン便 <small>8点入り／1セット <span data-set-price>2,040</span>円</small></p><div class="quantity-row"><span>セット数</span><div><button id="quantity-minus" type="button" aria-label="セット数を1減らす">−</button><output id="parcel-quantity" aria-live="polite">1</output><button id="quantity-plus" type="button" aria-label="セット数を1増やす">＋</button></div></div><label class="region-label" for="shipping-region">お届け先の地域</label><select id="shipping-region"><option value="standard">北海道・沖縄以外</option><option value="remote">北海道・沖縄</option></select><dl class="parcel-totals" aria-live="polite"><div><dt>商品計</dt><dd id="cart-subtotal">2,040円</dd></div><div><dt>送料（1注文）</dt><dd id="cart-shipping">980円</dd></div><div class="grand-total"><dt>合計</dt><dd id="cart-total">3,020円</dd></div></dl><p class="cart-demo">制作見本です。注文・決済はできません。</p><button class="parcel-button" type="button" data-close-dialog>パン便へ戻る</button></dialog>
+  <dialog class="review-dialog parcel-dialog" id="parcel-dialog" aria-labelledby="parcel-dialog-title"><div class="dialog-top"><h2 id="parcel-dialog-title">パン便の合計</h2><button type="button" data-close-dialog aria-label="合計を閉じる">×</button></div><p class="dialog-product">沖浜いつものパン便 <small>8点入り／1セット <span data-set-price>2,040</span>円</small></p><div class="quantity-row"><span>セット数</span><div><button id="quantity-minus" type="button" aria-label="セット数を1減らす">−</button><output id="parcel-quantity" aria-label="セット数" aria-live="polite">1</output><button id="quantity-plus" type="button" aria-label="セット数を1増やす">＋</button></div></div><label class="region-label" for="shipping-region">お届け先の地域</label><select id="shipping-region" name="shipping-region"><option value="standard">北海道・沖縄以外</option><option value="remote">北海道・沖縄</option></select><dl class="parcel-totals" aria-live="polite" aria-atomic="true"><div><dt>商品計</dt><dd id="cart-subtotal">2,040円</dd></div><div><dt>送料（1注文）</dt><dd id="cart-shipping">980円</dd></div><div class="grand-total"><dt>合計</dt><dd id="cart-total">3,020円</dd></div></dl><p class="cart-demo">制作見本です。注文・決済はできません。</p><button class="parcel-button" type="button" data-close-dialog>パン便へ戻る</button></dialog>
 
-  <script type="module" src="door.js?v=solid3"></script>
+  <script type="module" src="door.js?v=quality2"></script>
   <script type="module" src="bread-polish.mjs?v=polish1"></script>
   <script type="module" src="story-look.js?v=story1"></script>
-  <script type="module" src="polish.mjs?v=polish1"></script>
+  <script type="module" src="polish.mjs?v=quality2"></script>
 </body>
 </html>
