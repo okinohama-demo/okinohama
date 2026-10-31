@@ -1,0 +1,46 @@
+/* One oven scene from the closed window to the full-bleed page. */
+.oven { --scene-scale: .96; --casing-side: clamp(10px,2.5vw,22px); --casing-bottom: clamp(20px,2.8svh,32px); }
+.oven .chamber { background: #17120e; }
+.hero-scene { position: absolute; inset: 0; display: block; transform: scale(var(--scene-scale)); transform-origin: 50% 60%; }
+.hero-scene .bread { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% 60%; }
+.oven .chamber-vignette { background: linear-gradient(180deg,rgba(16,13,10,.16),transparent 25%,transparent 65%,rgba(16,13,10,.7)); }
+.oven .oven-header,.oven:not([data-renderer="webgl"]) .oven-header {
+  height: max(10.5svh,calc(env(safe-area-inset-top) + 48px));
+  padding: env(safe-area-inset-top) 16px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  transform: none; background: none; color: #f0e4c9;
+}
+.oven-wordmark { margin: 0; font: 700 clamp(26px,2.7vw,38px)/1.25 "Shippori Mincho B1",serif; letter-spacing: .12em; white-space: nowrap; text-shadow: 0 1px 3px #17120e88; }
+.oven-origin { margin: 0; font-size: 10px; letter-spacing: .12em; opacity: .8; }
+.oven[data-view="inside"] .oven-header { visibility: visible; }
+.oven .bread-info h1 { left: 6.2%; top: 24%; bottom: auto; font-size: clamp(36px,4.2vw,54px); line-height: 1.4; letter-spacing: .09em; writing-mode: vertical-rl; white-space: nowrap; }
+.oven .hero-next { left: 6.2%; bottom: max(8%,calc(env(safe-area-inset-bottom) + 40px)); }
+.oven .hero-disclaimer { bottom: max(3%,calc(env(safe-area-inset-bottom) + 10px)); left: 6.2%; right: auto; }
+.oven .motion-note { top: auto; bottom: max(62px,calc(env(safe-area-inset-bottom) + 56px)); margin: 0; font-size: 11px; }
+.oven .render-note { top: auto; bottom: max(105px,calc(env(safe-area-inset-bottom) + 100px)); }
+.oven .fallback-door { inset: calc(10.5% + .5svh) calc(var(--casing-side) + .5svh) calc(var(--casing-bottom) + .5svh); background: linear-gradient(110deg,#706b60,#5d5950 48%,#4d4b44); clip-path: polygon(evenodd,0 0,100% 0,100% 100%,0 100%,0 0,5% 21%,95% 21%,95% 90.5%,5% 90.5%,5% 21%); }
+.oven:not([data-renderer="webgl"]) .oven-canvas { visibility: hidden; }
+.oven:not([data-renderer="webgl"])::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(110deg,#706b60,#5d5950 48%,#4d4b44);
+  clip-path: polygon(evenodd,0 0,100% 0,100% 100%,0 100%,0 0,var(--casing-side) 10.5%,var(--casing-side) calc(100% - var(--casing-bottom)),calc(100% - var(--casing-side)) calc(100% - var(--casing-bottom)),calc(100% - var(--casing-side)) 10.5%,var(--casing-side) 10.5%);
+  transform: scale(var(--view-zoom)); transform-origin: 50% var(--viewport-center-y,50svh);
+}
+.oven[data-view="inside"]::before { visibility: hidden; }
+@media (max-width:600px) {
+  .oven-wordmark { font-size: clamp(23px,6.7vw,28px); letter-spacing: .08em; }
+  .oven-origin { font-size: 9px; letter-spacing: .1em; }
+  .hero-scene .bread { object-position: 50% 50%; }
+  .hero-scene .bread { height: 92%; bottom: auto; }
+  .oven .bread-info h1 { left: 8%; top: auto; bottom: max(12%,calc(env(safe-area-inset-bottom) + 96px)); font-size: clamp(25px,7.2vw,33px); letter-spacing: .055em; writing-mode: horizontal-tb; }
+  .oven .hero-next { left: 8%; bottom: max(6.3%,calc(env(safe-area-inset-bottom) + 35px)); font-size: 12px; }
+  .oven .hero-disclaimer { left: 8%; bottom: max(2%,calc(env(safe-area-inset-bottom) + 8px)); font-size: 10px; }
+}
+@media (max-height:500px) and (min-aspect-ratio:1/1) {
+  .oven-wordmark { font-size: 22px; }
+  .oven-origin { font-size: 8px; }
+  .oven .bread-info h1 { left: 5%; top: auto; bottom: 25%; font-size: 32px; writing-mode: horizontal-tb; }
+  .oven .hero-next { left: 5%; bottom: 8%; }
+}
+@media (max-width:360px) {
+  .chapter-button { top: max(58px,calc(env(safe-area-inset-top) + 52px)); }
+}
