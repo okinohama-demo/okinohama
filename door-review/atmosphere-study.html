@@ -1,0 +1,59 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f6f6f0"><title>おきのはま製パン｜窯から、店先へ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="door.css?v=solid3"><link rel="stylesheet" href="top-look.css?v=look1"><link rel="stylesheet" href="top-unified.css?v=unified1"><link rel="stylesheet" href="atmosphere-study.css?v=atmosphere1">
+<link rel="modulepreload" href="door-unified-scene.mjs?v=unified1"><link rel="preload" href="assets/open/morning-batch-v1.webp" as="image">
+</head><body class="atmosphere-study"><main>  <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="atmosphere-study-v1" data-renderer="loading">
+    <section class="chamber" aria-labelledby="bread-title">
+      <div class="chamber-wall wall-left" aria-hidden="true"></div>
+      <div class="chamber-wall wall-right" aria-hidden="true"></div>
+      <picture class="hero-scene"><img class="bread" src="assets/open/morning-batch-v1.webp" alt="窯の天板に並ぶ、焼きたての丸パンやロールパン" width="1536" height="1024" fetchpriority="high" draggable="false"></picture>
+      <div class="chamber-vignette" aria-hidden="true"></div>
+      <div class="bread-info" id="bread-info" aria-hidden="true">
+        <h1 id="bread-title">朝は、この窯から。</h1>
+        <a class="hero-next" href="#today" tabindex="-1" inert>今日のパンへ <span aria-hidden="true">↓</span></a>
+        <small class="hero-disclaimer">架空の店の制作見本です。</small>
+      </div>
+    </section>
+    <canvas class="oven-canvas" id="oven-canvas" aria-hidden="true"></canvas>
+    <div class="fallback-door" id="door-leaf" aria-hidden="true"></div>
+    <header class="oven-header">
+      <p class="oven-wordmark">おきのはま製パン</p>
+      <p class="oven-origin">徳島・沖浜町　　一九九九年から</p>
+    </header>
+        <div class="handle" id="handle" role="slider" tabindex="0" aria-label="オーブンの扉" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="閉じています" aria-orientation="vertical" aria-describedby="gesture-help" aria-controls="oven-canvas">
+          <img src="assets/open/handle.webp" alt="" width="672" height="98" draggable="false">
+        </div>
+        <p class="door-instruction" id="gesture-help">取っ手を下に引いて、開ける</p>
+    <div class="fixed-controls"><a class="skip-door" href="#today">扉を動かさず、パンを見る</a><button class="toggle-door" id="toggle-door" type="button" aria-controls="door-leaf">タップで開ける</button></div>
+    <div class="motion-note" id="motion-note" hidden><span id="motion-message">動きを減らす設定になっています。</span><button type="button" id="motion-toggle">扉の動きを試す</button></div>
+    <p class="render-note" id="render-note" hidden>立体表示を読み込めませんでした。右下のボタンで扉を開閉できます。</p>
+    <p class="sr-only" id="door-status" role="status" aria-live="polite"></p>
+    <noscript><p class="no-script">扉を動かすにはJavaScriptを有効にしてください。</p></noscript>
+  </div>
+
+
+<div id="chapters" hidden inert>
+<section class="counter-scene" id="today" aria-labelledby="today-title">
+  <header class="section-head"><div><p class="eyebrow">毎日のパン</p><h2 id="today-title">朝から順に、<br>焼いています。</h2></div><p class="quiet-copy">窯から出たら、いつもの場所へ。<br>今日のパンを、ゆっくりどうぞ。</p></header>
+  <figure class="counter-photo"><img src="assets/open/bakery-counter-v1.webp" width="1536" height="1024" alt="朝の光が入る木の台に、食パン、あんパン、塩パンが並ぶ売り場" loading="lazy"><figcaption>徳島・沖浜町　おきのはま製パン</figcaption></figure>
+  <div class="shelf-heading"><p>焼き上がりの順に</p><div class="shelf-arrows"><button type="button" data-step="-1" aria-label="前のパンを見る" aria-controls="bread-shelf">←</button><button type="button" data-step="1" aria-label="次のパンを見る" aria-controls="bread-shelf">→</button></div></div>
+  <div class="bread-shelf" id="bread-shelf" tabindex="0" role="region" aria-label="パンの棚。横にスクロールして選べます"></div>
+  <p class="shelf-note"><span id="shelf-position">1 / 6</span><span>横に送って、パンを選ぶ　↔</span></p>
+  <p class="fine-print">焼き上がりは目安です。商品・価格は制作見本です。</p>
+</section>
+<section class="hands-scene" id="story" aria-labelledby="story-title">
+  <div class="hands-picture"><img src="assets/open/owner-hands-v1.webp" width="1536" height="1024" loading="lazy" alt="粉のついた作業台で、生地を折りたたむ店主の手"><div class="hands-title"><p class="eyebrow">店主の手紙</p><h2 id="story-title">父の「いつもの」を、<br>次の朝へ。</h2></div></div>
+  <div class="letter"><p>父が沖浜町に店を開いたのは、1999年の春でした。学校から帰ると、袋を折るのが私の手伝いでした。</p><p>店を継いでからも、山型食パンとあんパンの配合は変えていません。今も、同じ窯で焼いています。</p><p>朝に顔を合わせる方にも、遠くでパンを待つ方にも。同じ窯から、いつものパンをお届けします。</p><p class="signature"><small>二代目店主（架空）</small>田村 菜穂</p></div>
+</section>
+<section class="parcel-scene" id="delivery" aria-labelledby="delivery-title">
+  <header class="parcel-heading"><p class="eyebrow">沖浜から、全国へ</p><h2 id="delivery-title">金曜に焼いて、<br>冷凍便で食卓へ。</h2></header>
+  <figure class="parcel-photo"><img src="assets/open/bread-parcel-v1.webp" width="1536" height="1024" loading="lazy" alt="食パンと塩パン、あんパン、鳴門金時のパン、くるみのパンを詰めた箱"></figure>
+  <div class="parcel-description"><h3>沖浜いつものパン便</h3><p class="parcel-price"><strong>2,040</strong>円<span>8点入り・税込・送料別</span></p><p>山型食パン1斤。塩パンとあんパン、<br>鳴門金時のパンを各2個。<br>阿波晩茶とくるみのパンを1個。</p><details><summary>送料とお届けについて <span aria-hidden="true">＋</span></summary><p>送料980円。北海道・沖縄は1,480円。<br>1箱の送料込み合計は3,020円、北海道・沖縄は3,520円です。</p><p>水曜18:00締切、毎週金曜発送。製造日から冷凍で14日、解凍後は当日中にお召し上がりください。</p></details><p class="fine-print">価格・送料・発送条件は見本用です。<br>注文・決済はできません。</p></div>
+</section>
+<section class="shop-scene" id="shop" aria-labelledby="shop-title">
+  <figure class="shop-photo"><img src="assets/open/shop-front-v1.webp" width="1536" height="1024" loading="lazy" alt="木の扉とガラス窓のある、おきのはま製パンの店先"><span class="shop-sign" aria-hidden="true">おきのはま製パン</span></figure>
+  <div class="shop-information"><div><p class="eyebrow">店の案内</p><h2 id="shop-title">沖浜町で、<br>朝七時から。</h2><p class="shop-hours">7:00–18:00</p><p>日曜・月曜休み</p><p class="fine-print">売り切れ次第、早く閉める日があります。</p></div><dl><div><dt>住所</dt><dd>徳島県徳島市沖浜町二丁目18-3<br><small>見本用の架空住所です。</small></dd></div><div><dt>駐車場</dt><dd>店の東側に3台<br>自転車置き場あり</dd></div><div><dt>支払い</dt><dd>現金・クレジットカード・交通系IC</dd></div></dl></div>
+  <footer><p>おきのはま製パン</p><a href="#oven">窯へ戻る ↑</a><small>架空の店の制作見本。写真は生成画像です。</small></footer>
+</section>
+</div></main><nav class="chapter-nav" aria-label="ページ内の案内" hidden inert><a href="#today">パン</a><a href="#story">手紙</a><a href="#delivery">パン便</a><a href="#shop">店</a></nav>
+<script type="module" src="door-unified.mjs?v=unified1"></script><script type="module" src="atmosphere-study.mjs?v=atmosphere1"></script></body></html>
