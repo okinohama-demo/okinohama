@@ -1,14 +1,17 @@
 /* Direction study: oven darkness, sunlit counter, hands, parcel, street. */
 :root { --sheet:#f6f6f0; --ink:#343329; --quiet:#68685d; --stone:#e6e8e0; --page-gutter:clamp(20px,8vw,112px); --nav-height:56px; color-scheme:light; }
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 body.atmosphere-study { background:var(--sheet); color:var(--ink); font-weight:500; }
 .atmosphere-study .oven { position:relative; inset:auto; width:100%; height:100svh; color:#f0e4c9; }
 body.atmosphere-study.has-entered { height:auto; overflow:visible; }
+.atmosphere-study main,#chapters { width:100%; max-width:100%; min-width:0; }
 [hidden] { display:none!important; }
-#chapters > section { scroll-margin-top:calc(var(--nav-height) + env(safe-area-inset-top) + 20px); min-width:0; }
+#chapters > section { width:100%; max-width:100%; scroll-margin-top:calc(var(--nav-height) + env(safe-area-inset-top) + 20px); min-width:0; }
 figure,p,h2,h3 { margin:0; }
 a { color:inherit; }
 button,a,summary { -webkit-tap-highlight-color:transparent; }
 :focus-visible { outline:2px solid currentColor; outline-offset:5px; }
+#chapters h2[tabindex="-1"]:focus { outline:none; }
 .skip-door { pointer-events:auto; color:#eee6d6; min-height:44px; display:inline-flex; align-items:center; font-size:11px; text-underline-offset:5px; }
 .oven[data-view="inside"] .skip-door { display:none; }
 .oven[data-view="inside"] .fixed-controls { justify-content:flex-end; }
@@ -50,6 +53,8 @@ h2 { font:700 clamp(30px,3.3vw,49px)/1.75 'Shippori Mincho B1',serif; letter-spa
 .hands-title h2 { width:max-content; max-width:100%; margin:36px auto 0; height:490px; font-size:clamp(28px,3vw,38px); line-height:1.6; writing-mode:vertical-rl; }
 .letter { position:relative; width:49%; max-width:650px; margin:-48px var(--page-gutter) 0 auto; background:var(--sheet); padding:45px 0 0 clamp(25px,4vw,55px); z-index:2; }
 .letter > p { font-size:14px; line-height:2.5; letter-spacing:.04em; margin-bottom:23px; }
+.letter,.letter > p { min-width:0; white-space:normal; overflow-wrap:anywhere; word-break:normal; }
+.letter > p { max-width:100%; }
 .letter .signature { margin-top:32px; text-align:right; font:24px/1.8 'Shippori Mincho B1',serif; }
 .signature small { display:block; font:10px/2 'Zen Kaku Gothic New',sans-serif; margin-bottom:7px; }
 .parcel-scene { position:relative; padding:0 0 100px; }
@@ -60,7 +65,9 @@ h2 { font:700 clamp(30px,3.3vw,49px)/1.75 'Shippori Mincho B1',serif; letter-spa
 .parcel-description h3 { font:700 clamp(23px,2.4vw,33px)/1.7 'Shippori Mincho B1',serif; }
 .parcel-price { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; font-size:14px; margin:17px 0 22px; }
 .parcel-price strong { font:400 52px/1.1 Georgia,serif; letter-spacing:-.02em; }
-.parcel-price span { font-size:11px; }
+.parcel-amount { display:inline-flex; align-items:baseline; gap:6px; white-space:nowrap; }
+.parcel-price .parcel-unit { font-size:14px; }
+.parcel-price .parcel-meta { font-size:11px; }
 .parcel-description > p:not(.parcel-price):not(.fine-print) { font-size:13px; line-height:2.2; }
 details { margin-top:28px; border-top:1px solid #b9bcad; border-bottom:1px solid #b9bcad; }
 summary { display:flex; justify-content:space-between; padding:20px 0; cursor:pointer; font-size:13px; list-style:none; }
@@ -90,36 +97,38 @@ footer small { flex-basis:100%; font-size:10px; color:var(--quiet); line-height:
 .chapter-nav a { font-size:12px; text-decoration:none; padding:10px 4px; min-width:44px; min-height:var(--nav-height); display:flex; align-items:center; justify-content:center; }
 .chapter-nav a[aria-current] { text-decoration:underline; text-underline-offset:5px; }
 @media(max-width:700px) {
- .section-head { padding:24px var(--page-gutter) 22px; width:77%; max-width:none; margin-bottom:-24px; }
+ .counter-photo { grid-row:1; }
+ .section-head { grid-row:2; padding:30px var(--page-gutter) 24px; width:100%; max-width:none; margin:0; }
  .section-head h2 { font-size:28px; }
  .eyebrow { font-size:11px; margin-bottom:17px; }
  .counter-photo { margin-left:0; }
  .counter-photo img { height:520px; object-position:53% 55%; }
  .counter-photo figcaption { top:24px; }
- .shelf-heading { margin-top:53px; }
- .bread-shelf { gap:24px; }
- .shelf-item { flex-basis:77vw; min-width:0; }
+ .shelf-heading { margin-top:8px; }
+ .bread-shelf { gap:calc(2 * var(--page-gutter)); }
+ .shelf-item { flex-basis:100%; min-width:0; }
  .shelf-item h3 { font-size:27px; }
  .shelf-item svg { aspect-ratio:1.06; }
  .shelf-note { margin-top:12px; font-size:10px; }
  .counter-scene > .fine-print { margin:20px var(--page-gutter) 60px; }
- .hands-picture { grid-template-columns:minmax(0,1fr) clamp(96px,26vw,155px); }
- .hands-picture > img { height:460px; object-position:56% 70%; }
- .hands-title { padding:27px 10px 16px; }
- .hands-title .eyebrow { font-size:10px; letter-spacing:.06em; }
- .hands-title h2 { font-size:clamp(22px,6vw,25px); height:350px; line-height:1.6; margin-top:27px; letter-spacing:.08em; }
- .letter { width:auto; max-width:none; margin:-16px var(--page-gutter) 0; padding:30px 0 0; }
+ .hands-picture { display:flex; flex-direction:column; overflow:visible; }
+ .hands-picture > img { order:1; width:100%; height:clamp(290px,100vw,430px); object-position:60% 55%; }
+ .hands-title { order:0; width:100%; padding:0 var(--page-gutter) 25px; }
+ .hands-title .eyebrow { text-align:left; font-size:11px; letter-spacing:.15em; }
+ .hands-title h2 { width:100%; max-width:100%; height:auto; font-size:clamp(25px,6.8vw,29px); line-height:1.8; margin:0; writing-mode:horizontal-tb; letter-spacing:.06em; }
+ .letter { width:100%; max-width:100%; margin:0; padding:30px var(--page-gutter) 0; }
  .letter > p { font-size:13px; line-height:2.35; margin-bottom:20px; }
  .letter .signature { font-size:23px; margin-top:27px; }
  .hands-scene { padding-bottom:55px; }
  .parcel-heading { padding-top:0; padding-bottom:27px; }
  .parcel-heading h2 { font-size:29px; }
  .parcel-photo { width:100%; }
- .parcel-description { width:auto; max-width:none; margin:-26px var(--page-gutter) 0; padding:26px 0 0; }
+ .parcel-description { width:100%; max-width:100%; margin:0; padding:28px var(--page-gutter) 0; }
  .parcel-description h3 { font-size:23px; }
  .parcel-price strong { font-size:48px; }
  .parcel-price { margin:14px 0 20px; gap:6px; }
- .parcel-price span { font-size:10px; }
+ .parcel-price .parcel-meta { flex-basis:100%; font-size:11px; margin-top:2px; }
+ .parcel-description > p:not(.parcel-price):not(.fine-print) br { display:none; }
  .parcel-scene { padding-bottom:60px; }
  .shop-information { display:block; padding:34px var(--page-gutter) 30px; }
  .shop-information h2 { font-size:29px; line-height:1.8; }
