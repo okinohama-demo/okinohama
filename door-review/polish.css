@@ -1,0 +1,61 @@
+/* Review refinements; accepted imagery and the physical door remain shared. */
+#today,#story,#delivery,#shop { scroll-margin-block-start: 12px; }
+h2[tabindex="-1"]:focus-visible { outline: 2px solid currentColor; outline-offset: 7px; }
+.daily-guide,.delivery-intro,#selected-description,.story-letter > p { font-size: 15px; line-height: 1.95; letter-spacing: .025em; }
+.delivery-heading h2 { text-wrap: balance; }
+.daily-kicker,.bake-navigation > p,.selected-bake span,.selected-price span,
+.story-heading > p,.story-signature span,.parcel-category,.parcel-tax,
+.shop-heading > p:first-child,.shop-hours > p:first-child,.shop-facts dt { font-size: 12px; }
+.bake-times button { color: #51412f; }
+.bake-times time { font-weight: 600; }
+.bake-times button[aria-pressed="true"] time { font-weight: 700; }
+.bread-description h3 { margin-bottom: 10px; }
+.selected-price { margin-top: 13px; }
+.daily-footer p,.daily-footer a,.story-footer p,.story-footer a,.delivery-footer p,.delivery-footer a,
+.parcel-photo figcaption,.delivery-terms small,.shop-facts small,.shop-hours small,.footer-legal { font-size: 12px; line-height: 1.85; }
+.parcel-photo figcaption,.footer-legal { opacity: .9; }
+.story-letter .story-signature { margin-top: 23px; }
+.story-signature span { font-size: 12px; }
+.story-footer nav { gap: 18px 25px; }
+.parcel-rate { margin: 12px 0 0; font-size: 13px; line-height: 1.8; }
+.parcel-order > .parcel-button { margin: 17px 0 23px; }
+.parcel-button { min-height: 54px; font-size: 14px; }
+.parcel-list summary { min-height: 44px; font-size: 13px; }
+.parcel-list li,.delivery-terms dt,.shop-facts dd,.bakery-footer a { font-size: 14px; line-height: 1.85; }
+.delivery-terms dd { font-size: 17px; }
+.shop-heading > p:last-child { font-size: 15px; }
+.review-dialog { overscroll-behavior: contain; }
+.dialog-top { position: sticky; top: 0; z-index: 1; padding-block: 6px; background: #f0e8d8; }
+.dialog-product,.quantity-row > span,.region-label,.parcel-totals > div { font-size: 15px; }
+.dialog-product small,.cart-demo { font-size: 12px; line-height: 1.8; }
+#shipping-region { font-size: 16px; }
+.quantity-row output,.parcel-totals dd { font-variant-numeric: tabular-nums; }
+.chapter-dialog nav a { font-size: 18px; }
+@media (hover:hover) {
+  .parcel-button:hover { background: #2e4137; }
+  .bake-times button:hover { color: #251c11; }
+  .chapter-dialog nav a:hover,.bakery-footer a:hover,.daily-footer a:hover,.story-footer a:hover,.delivery-footer a:hover { text-decoration: underline; text-underline-offset: 5px; }
+}
+@media (pointer:coarse) {
+  html.bakery-entered,html.bakery-entered body { overscroll-behavior-y: auto; }
+}
+@media (max-width:700px) {
+  .daily-guide,.delivery-intro,#selected-description,.story-letter > p { font-size: 14px; }
+  .daily-guide { max-width: 30em; }
+  .bake-times time { font-size: clamp(13px,4vw,18px); }
+  .bread-description h3 { margin-bottom: 9px; }
+  .selected-price { margin-top: 12px; }
+  .parcel-order h3 br { display: none; }
+  .parcel-order h3 { font-size: clamp(24px,6.5vw,32px); }
+  .parcel-category { font-size: 12px; }
+  .parcel-list li,.shop-facts dd,.bakery-footer a { font-size: 13px; }
+  .delivery-terms { grid-template-columns: 1fr 1fr; }
+  .delivery-terms dt { font-size: 12px; }
+  .delivery-terms dd { font-size: 15px; }
+  .shop-facts > div { grid-template-columns: 46px minmax(0,1fr); gap: 12px; }
+  .shop-hours .shop-holidays { font-size: 16px; }
+  .story-letter { padding-inline: 25px; }
+  .story-footer a,.daily-footer a,.delivery-footer a { min-height: 44px; }
+  .bakery-footer nav { gap: 4px 20px; }
+  .footer-legal { font-size: 11px; }
+}
