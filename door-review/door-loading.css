@@ -1,0 +1,27 @@
+/* Keep the complete casing visible before WebGL is ready, including its failure path. */
+.oven:not([data-renderer="webgl"])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --casing-side: clamp(12px,3.5vw,26px);
+  --casing-bottom: clamp(22px,3.5svh,36px);
+  background: #384345 url("assets/open/steel.webp") center/640px 240px;
+  clip-path: polygon(evenodd,
+    0 0,100% 0,100% 100%,0 100%,0 0,
+    var(--casing-side) 17%,
+    var(--casing-side) calc(100% - var(--casing-bottom)),
+    calc(100% - var(--casing-side)) calc(100% - var(--casing-bottom)),
+    calc(100% - var(--casing-side)) 17%,
+    var(--casing-side) 17%);
+  transform-origin: 50% var(--viewport-center-y,50svh);
+  transform: scale(var(--view-zoom));
+}
+.oven:not([data-renderer="webgl"]) .oven-header,
+.oven:not([data-renderer="webgl"]) .fallback-door {
+  background-color: #384345;
+}
+.oven[data-view="inside"]::before {
+  visibility: hidden;
+}
