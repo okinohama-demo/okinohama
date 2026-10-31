@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/open/loaf.jpg" as="image">
-  <link rel="stylesheet" href="door.css">
+  <link rel="stylesheet" href="door.css?v=solid2">
 </head>
 <body>
-  <main class="oven" id="oven" data-position="closed">
+  <main class="oven" id="oven" data-position="closed" data-version="solid-v2" data-renderer="loading">
     <section class="chamber" aria-labelledby="bread-title">
       <div class="chamber-wall wall-left" aria-hidden="true"></div>
       <div class="chamber-wall wall-right" aria-hidden="true"></div>
@@ -26,13 +26,9 @@
         <small>架空の店の制作見本です</small>
       </div>
     </section>
-    <div class="perspective" id="perspective">
-      <div class="door-leaf" id="door-leaf">
-        <div class="door-back door-cutout" aria-hidden="true"></div>
-        <div class="door-skin door-cutout" aria-hidden="true"></div>
-        <div class="door-edge" aria-hidden="true"></div>
-        <div class="glass" aria-hidden="true"><div class="glass-reflection"></div></div>
-        <div class="door-shade door-cutout" aria-hidden="true"></div>
+    <canvas class="oven-canvas" id="oven-canvas" aria-hidden="true"></canvas>
+    <div class="fallback-door" id="door-leaf" aria-hidden="true"></div>
+    <header class="oven-header">
         <div class="makers-plate"><span>おきのはま製パン</span><small>沖浜町・一九九九年から</small></div>
         <svg class="thermometer" viewBox="0 0 100 100" aria-hidden="true">
           <defs><radialGradient id="dial"><stop stop-color="#d8d8cb"/><stop offset=".83" stop-color="#b5b9ac"/><stop offset="1" stop-color="#64716e"/></radialGradient></defs>
@@ -43,19 +39,17 @@
           <path d="M45 57 69 27" stroke="#333b37" stroke-width="2"/><circle cx="50" cy="50" r="4" fill="#333b37"/>
           <text x="50" y="87" font-family="serif" font-size="7" fill="#34413d" text-anchor="middle">°C</text>
         </svg>
-        <div class="rivets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <div class="handle" id="handle" role="slider" tabindex="0" aria-label="オーブンの扉" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="閉じています" aria-orientation="vertical" aria-describedby="gesture-help">
+    </header>
+        <div class="handle" id="handle" role="slider" tabindex="0" aria-label="オーブンの扉" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="閉じています" aria-orientation="vertical" aria-describedby="gesture-help" aria-controls="oven-canvas">
           <img src="assets/open/handle.webp" alt="" width="672" height="98" draggable="false">
         </div>
         <p class="door-instruction" id="gesture-help">取っ手を下に引いて、開ける</p>
-        <span class="hinge hinge-left" aria-hidden="true"></span><span class="hinge hinge-right" aria-hidden="true"></span>
-      </div>
-    </div>
     <div class="fixed-controls"><span class="demo-label">制作見本</span><button class="toggle-door" id="toggle-door" type="button" aria-controls="door-leaf">タップで開ける</button></div>
     <div class="motion-note" id="motion-note" hidden><span id="motion-message">動きを減らす設定になっています。</span><button type="button" id="motion-toggle">扉の動きを試す</button></div>
+    <p class="render-note" id="render-note" hidden>立体表示を読み込めませんでした。右下のボタンで扉を開閉できます。</p>
     <p class="sr-only" id="door-status" role="status" aria-live="polite"></p>
     <noscript><p class="no-script">扉を動かすにはJavaScriptを有効にしてください。</p></noscript>
   </main>
-  <script type="module" src="door.js"></script>
+  <script type="module" src="door.js?v=solid2"></script>
 </body>
 </html>
