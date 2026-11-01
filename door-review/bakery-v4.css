@@ -100,7 +100,7 @@ h2 { font:700 clamp(30px,3.3vw,49px)/1.7 'Shippori Mincho B1',serif; letter-spac
 /* Hands */
 .letter-scene { position:relative; padding:clamp(70px,9vw,120px) 0 100px; }
 .letter-head { padding:0 var(--page-gutter); }
-.letter-scene.is-rolling { padding:0; }
+#chapters > .letter-scene.is-rolling { padding:0; scroll-margin-top:0; }
 .is-rolling .letter-head,.is-rolling .letter { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
 .roll { position:relative; }
 .roll-stage { position:sticky; top:0; height:100svh; overflow:hidden; background:var(--sheet); --roll-size:max(16px,min(calc((100svh - var(--nav-height) - 12svh)/15.4),52px)); }
