@@ -161,20 +161,55 @@ function updateStatus() {
 }
 updateStatus();setInterval(updateStatus,60000);
 
-// The baker's hands keep folding the dough while the letter is on screen.
-const handsMedia=$('hands-media');
+// The letter is read by scrolling: its columns travel right and each character bakes as it reaches the front.
+const roll=$('letter-roll');
 if(!calm.matches) {
- const video=document.createElement('video');
- video.muted=true;video.loop=true;video.playsInline=true;video.preload='none';video.setAttribute('aria-hidden','true');
- video.poster=handsMedia.querySelector('img').currentSrc||handsMedia.querySelector('img').src;
- video.src='assets/open/hands-loop-v1.mp4';
- let added=false;
- new IntersectionObserver(([entry])=>{
-  if(entry.isIntersecting) {
-   if(!added){added=true;video.addEventListener('playing',()=>{handsMedia.querySelector('img').hidden=true;},{once:true});handsMedia.append(video);}
-   video.play().catch(()=>{});
-  } else if(added)video.pause();
- },{threshold:.2}).observe(handsMedia);
+ const track=$('roll-track'),stage=roll.querySelector('.roll-stage');
+ const RAW=[220,211,187],GOLD=[185,119,42],CRUST=[75,46,22];
+ const mix=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+ const shade=t=>`rgb(${(t<.5?mix(RAW,GOLD,t*2):mix(GOLD,CRUST,t*2-1)).join()})`;
+ const glyphs=[];
+ track.querySelectorAll('.roll-col').forEach(col=>{
+  const chars=[...col.textContent];col.textContent='';
+  chars.forEach((char,index)=>{
+   const span=document.createElement('span');span.textContent=char;col.append(span);
+   glyphs.push({span,col,along:index/chars.length,step:-1,at:0});
+  });
+ });
+ $('story').classList.add('is-rolling');roll.hidden=false;
+ let startX=0,endX=0,pitch=60,width=0,queued=false;
+ const paint=()=>{
+  queued=false;
+  const span=roll.offsetHeight-stage.offsetHeight;
+  const progress=span>0?Math.min(1,Math.max(0,-roll.getBoundingClientRect().top/span)):0;
+  const x=startX+(endX-startX)*progress;
+  track.style.transform=`translate3d(${x.toFixed(1)}px,0,0)`;
+  // The front sits on screen, so the character turning brown is always the one being read.
+  const edge=width*.62+(endX-startX>0?(endX+width-track.offsetWidth-pitch*3-width*.62)*progress:0);
+  const front=width+x-edge,soft=pitch*2.5;
+  glyphs.forEach(glyph=>{
+   const step=Math.round(Math.min(1,Math.max(0,(front-glyph.at)/soft))*20);
+   if(step!==glyph.step){glyph.step=step;glyph.span.style.color=shade(step/20);}
+  });
+ };
+ const queue=()=>{if(!queued){queued=true;requestAnimationFrame(paint);}};
+ const measure=()=>{
+  width=stage.clientWidth;
+  if(!width)return;
+  track.style.transform='none';
+  const trackRight=track.getBoundingClientRect().right,trackWidth=track.offsetWidth;
+  const first=track.querySelector('.roll-col');
+  pitch=first.getBoundingClientRect().width;
+  glyphs.forEach(glyph=>{glyph.at=trackRight-glyph.col.getBoundingClientRect().right+glyph.along*pitch;});
+  const gutter=Math.max(20,width*.05);
+  endX=Math.max(gutter,(width-trackWidth)/2)+trackWidth-width;
+  startX=endX-Math.max(trackWidth+gutter*2-width,width*.35);
+  roll.style.height=`calc(100svh + ${Math.round(Math.max((endX-startX)*1.6,stage.clientHeight*1.7))}px)`;
+  paint();
+ };
+ new ResizeObserver(measure).observe(stage);
+ document.fonts?.ready.then(measure);
+ addEventListener('scroll',queue,{passive:true});
 }
 
 // One-shot reveals. They trigger once and do not follow the scroll position.

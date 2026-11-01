@@ -1,7 +1,7 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#1b1a18"><title>おきのはま製パン｜窯から、店先へ</title>
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="door.css?v=solid3"><link rel="stylesheet" href="top-look.css?v=look1"><link rel="stylesheet" href="top-unified.css?v=unified1"><link rel="stylesheet" href="bakery-v4.css?v=v4">
+<link rel="stylesheet" href="door.css?v=solid3"><link rel="stylesheet" href="top-look.css?v=look1"><link rel="stylesheet" href="top-unified.css?v=unified1"><link rel="stylesheet" href="bakery-v4.css?v=v4b">
 <link rel="modulepreload" href="door-v4-scene.mjs?v=v4"><link rel="preload" href="assets/open/morning-batch-v1.webp" as="image">
 </head><body class="bakery-v4"><main>
 <div class="oven" id="oven" data-position="closed" data-view="framed" data-version="bakery-v4" data-renderer="loading">
@@ -58,8 +58,15 @@
   <p class="fine-print counter-note">焼き上がりは目安です。商品・価格は制作見本です。</p>
 </section>
 
-<section class="hands-scene" id="story" aria-labelledby="story-title">
-  <div class="hands-picture" data-reveal><div class="hands-media" id="hands-media"><img src="assets/open/owner-hands-v1.webp" width="1536" height="1024" loading="lazy" alt="粉のついた作業台で、生地を折りたたむ店主の手"></div><div class="hands-title"><p class="eyebrow">店主の手紙</p><h2 id="story-title">父の「いつもの」を<br>次の朝へ</h2></div></div>
+<section class="letter-scene" id="story" aria-labelledby="story-title">
+  <div class="letter-head"><p class="eyebrow">店主の手紙</p><h2 id="story-title">父の「いつもの」を<br>次の朝へ</h2></div>
+  <div class="roll" id="letter-roll" hidden aria-hidden="true"><div class="roll-stage"><div class="roll-track" id="roll-track">
+    <div class="roll-head"><span class="roll-eyebrow">店主の手紙</span><span class="roll-title">父の「いつもの」を</span><span class="roll-title">次の朝へ</span></div>
+    <span class="roll-col">父が沖浜町に店を開いたのは、</span><span class="roll-col">一九九九年の春でした。</span><span class="roll-col">学校から帰ると、</span><span class="roll-col">袋を折るのが</span><span class="roll-col is-end">私の手伝いでした。</span>
+    <span class="roll-col">店を継いでからも、</span><span class="roll-col">山型食パンとあんパンの</span><span class="roll-col">配合は変えていません。</span><span class="roll-col is-end">今も、同じ窯で焼いています。</span>
+    <span class="roll-col">朝に顔を合わせる方にも、</span><span class="roll-col">遠くでパンを待つ方にも。</span><span class="roll-col">同じ窯から、</span><span class="roll-col is-end">いつものパンをお届けします。</span>
+    <span class="roll-col roll-sign">二代目店主（架空）　田村 菜穂</span>
+  </div></div></div>
   <div class="letter"><p>父が沖浜町に店を開いたのは、1999年の春でした。学校から帰ると、袋を折るのが私の手伝いでした。</p><p>店を継いでからも、山型食パンとあんパンの配合は変えていません。今も、同じ窯で焼いています。</p><p>朝に顔を合わせる方にも、遠くでパンを待つ方にも。同じ窯から、いつものパンをお届けします。</p><p class="signature"><small>二代目店主（架空）</small>田村 菜穂</p></div>
 </section>
 
@@ -92,4 +99,4 @@
   <footer><p>おきのはま製パン</p><a href="#oven">窯へ戻る ↑</a><small>架空の店の制作見本。写真は生成画像です。</small></footer>
 </section>
 </div></main>
-<script type="module" src="door-v4.mjs?v=v4"></script><script type="module" src="bakery-v4.mjs?v=v4"></script></body></html>
+<script type="module" src="door-v4.mjs?v=v4"></script><script type="module" src="bakery-v4.mjs?v=v4b"></script></body></html>
