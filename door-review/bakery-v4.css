@@ -23,6 +23,13 @@ button,a,summary { -webkit-tap-highlight-color:transparent; }
 .oven[data-view="inside"] .fixed-controls { justify-content:flex-end; }
 .bakery-v4 .oven .fallback-door { background:linear-gradient(110deg,#2c2b28,#232220 48%,#1b1a18); }
 .bakery-v4 .oven:not([data-renderer="webgl"])::before { background:linear-gradient(110deg,#2c2b28,#232220 48%,#1b1a18); }
+.bakery-v4 .hero-scene { opacity:var(--lit,0); }
+.oven[data-bake="baking"] .toggle-door { visibility:hidden; }
+.oven[data-steam] .oven-canvas { visibility:visible; pointer-events:none; }
+.oven:not([data-position="closed"]) .skip-door { visibility:hidden; }
+.oven[data-bake="baking"] .handle { cursor:default; }
+.oven[data-bake="done"] .door-instruction { color:#f6e6c2; }
+.bakery-v4 .oven:not([data-renderer="webgl"]) .chamber { background:radial-gradient(70% 38% at 50% 78%,#c9571c,#57200a 58%,#17120e); }
 .bakery-v4 .hero-scene .bread { filter:brightness(calc(.32 + .68 * var(--baked,1))) saturate(calc(.55 + .45 * var(--baked,1))); }
 
 /* Oven: heating up while the page loads */

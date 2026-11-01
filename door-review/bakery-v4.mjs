@@ -1,4 +1,4 @@
-import { enterBakery, doorReady } from './door-v4.mjs?v=v4d';
+import { enterBakery, doorReady, startBake } from './door-v4.mjs?v=v4e';
 import { setupBakeryNavigation } from './bakery-navigation.mjs';
 import { PRODUCTS, PARCEL_PRICE, SHIPPING, parcelTotals } from './bakery-data-v4.mjs';
 
@@ -10,7 +10,7 @@ const calm=matchMedia('(prefers-reduced-motion: reduce)');
 const $=id=>document.getElementById(id);
 document.documentElement.classList.add('js-reveal');
 
-// Loading is the oven heating up: the needle follows real progress, then the bread is done.
+// Loading is the oven heating up: the needle follows real progress, then the bake starts behind the door.
 const loader=$('bake-loader');
 function buildDial() {
  const ticks=$('dial-ticks');let html='';
@@ -38,9 +38,10 @@ function runLoader() {
  const begin=performance.now(),minimum=skip?0:1700,limit=begin+7000;
  function finish() {
   if(finished)return;finished=true;
-  setHeat(1);$('bake-caption').textContent='焼き上がりました';
+  setHeat(1);$('bake-caption').textContent='窯が温まりました';
   setTimeout(()=>{
    loader.classList.add('is-done');
+   startBake();
    setTimeout(()=>loader.remove(),700);
   },skip?0:360);
  }

@@ -8,6 +8,27 @@ const help=document.getElementById('gesture-help'),renderNote=document.getElemen
 let progress=0,width=1,height=1,drag=null,tween=0,lastPointerMove=-1000,motionAllowed=false;
 let engine=null,failed=false,gripBounds=null,baseHandleWidth=1;
 let view=0,viewTween=0;
+// The door stays shut until the bread is done. If nobody pulls the handle, it opens by itself.
+const BAKE_MS=3400,SELF_OPEN_MS=5200;
+let baked=false,bakeTimer=0,selfOpenTimer=0;
+function helpText(){
+  if(!baked)return'焼いています';
+  return isCalm()||failed?'焼き上がりました。取っ手をタップして、開ける':'焼き上がりました。取っ手を下に引いて、開ける';
+}
+function bakeFinished(){
+  if(baked)return;
+  clearTimeout(bakeTimer);baked=true;oven.dataset.bake='done';help.textContent=helpText();
+  status.textContent='焼き上がりました。';engine?.setHeat(.56);
+  if(isCalm()||failed||progress>0)return;
+  selfOpenTimer=setTimeout(()=>{if(progress<.001&&!drag)setProgress(1,true);},SELF_OPEN_MS);
+}
+// Called when the preheating screen has gone.
+export function startBake(){
+  if(baked||bakeTimer)return;
+  if(isCalm()||failed){bakeFinished();return;}
+  engine?.setHeat(1);
+  bakeTimer=setTimeout(bakeFinished,BAKE_MS);
+}
 const isCalm=()=>motion.matches&&!motionAllowed;
 function stopViewTween(){cancelAnimationFrame(viewTween);viewTween=0;}
 function renderView(value){
@@ -55,6 +76,7 @@ function render(value) {
   progress=clamp(value);
   const pct=Math.round(progress*100);
   oven.style.setProperty('--opening',progress.toFixed(5));
+  oven.style.setProperty('--lit',clamp(progress/.5).toFixed(4));
   updateScene();
   oven.dataset.position=progress<.01?'closed':progress>.99?'open':'ajar';
   handle.setAttribute('aria-valuenow',pct);
@@ -68,7 +90,7 @@ function stopTween(){cancelAnimationFrame(tween);tween=0;}
 function animateDoor(value,animate=false) {
   stopTween();
   if(!animate||isCalm()||failed){render(value);announce();if(progress>=.999)moveView(1,false);return;}
-  const from=progress,to=clamp(value),begin=performance.now(),duration=800*Math.max(.4,Math.abs(to-from));
+  const from=progress,to=clamp(value),begin=performance.now(),duration=1250*Math.max(.4,Math.abs(to-from));
   const frame=(now)=>{
     const t=clamp((now-begin)/duration);
     render(from+(to-from)*(t*t*(3-2*t)));
@@ -84,7 +106,7 @@ function setProgress(value,animate=false){
   animateDoor(target,animate);
 }
 // Direct chapter links and the skip link enter without replaying the door motion.
-export function enterBakery(){setProgress(1,false);}
+export function enterBakery(){clearTimeout(bakeTimer);clearTimeout(selfOpenTimer);if(!baked){baked=true;oven.dataset.bake='done';help.textContent=helpText();}engine?.setSteamAllowed(false);setProgress(1,false);engine?.setSteamAllowed(true);}
 function endDrag(event) {
   if(!drag||event.pointerId!==drag.id)return;
   // A mouse click rarely stays perfectly still, so a few pixels still count as a tap.
@@ -106,6 +128,8 @@ oven.addEventListener('pointerup',(event)=>{
 });
 oven.addEventListener('pointerdown',(event)=>{
   oven.dataset.pointer='';
+  if(!baked)return;
+  clearTimeout(selfOpenTimer);
   if((isCalm()||failed)&&event.button===0&&event.target.closest('#handle'))plainPull={id:event.pointerId,y:event.clientY};
   if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||view>0||viewTween||event.target.closest('button,a'))return;
   const onHandle=!!event.target.closest('#handle');
@@ -127,12 +151,16 @@ oven.addEventListener('pointermove',(event)=>{
 });
 oven.addEventListener('pointerup',endDrag);oven.addEventListener('pointercancel',endDrag);oven.addEventListener('lostpointercapture',endDrag);
 handle.addEventListener('click',(event)=>{
+  if(!baked)return;
+  clearTimeout(selfOpenTimer);
   if(engine&&!isCalm()&&event.detail!==0)return;
   if(performance.now()-lastPointerMove<450)return;
   setProgress(progress>.5?0:1,true);
 });
 handle.addEventListener('keydown',(event)=>{
   delete oven.dataset.pointer;
+  if(!baked)return;
+  clearTimeout(selfOpenTimer);
   let next;
   switch(event.key) {
     case'ArrowDown':case'ArrowRight':next=progress+.1;break;
@@ -144,7 +172,7 @@ handle.addEventListener('keydown',(event)=>{
   if(isCalm()||failed)next=['ArrowDown','ArrowRight','PageDown','End'].includes(event.key)?1:['ArrowUp','ArrowLeft','PageUp','Home','Escape'].includes(event.key)?0:next;
   event.preventDefault();setProgress(next);
 });
-toggle.addEventListener('click',(event)=>setProgress(progress>.5?0:1,event.detail!==0));
+toggle.addEventListener('click',(event)=>{if(!baked)return;clearTimeout(selfOpenTimer);setProgress(progress>.5?0:1,event.detail!==0);});
 function resize() {
   const w=oven.clientWidth,h=oven.clientHeight;
   if(w===width&&h===height)return;
@@ -162,7 +190,8 @@ function motionChanged() {
   if(isCalm())render(progress>.5?1:0);
   if(isCalm()||view>0||failed)renderView(progress>=.999?1:0);
   oven.dataset.motion=isCalm()?'reduced':'full';
-  help.textContent=isCalm()||failed?'取っ手をタップして、開ける':'取っ手を下に引いて、開ける';
+  help.textContent=helpText();
+  engine?.setStill(isCalm());
   document.getElementById('motion-message').textContent=motionAllowed?'扉の動きを表示しています。':'動きを減らす設定になっています。';
   document.getElementById('motion-toggle').textContent=motionAllowed?'動きを減らす':'扉の動きを試す';
   note.hidden=!motion.matches||failed;
@@ -174,10 +203,12 @@ function renderFailed(){
   stopTween();stopViewTween();if(drag)endDrag({pointerId:drag.id});
   engine=null;failed=true;oven.dataset.renderer='fallback';renderNote.hidden=false;
   positionFallbackHandle();motionChanged();render(progress>.5?1:0);renderView(progress>=.999?1:0);
+  if(bakeTimer)bakeFinished();
 }
+oven.dataset.bake='baking';
 resize();motionChanged();render(0);
-export const doorReady=import('./door-v4-scene.mjs?v=v4').then(async({createOvenScene})=>{
-  engine=await createOvenScene(canvas,renderFailed);
+export const doorReady=import('./door-v4-scene.mjs?v=v4e').then(async({createOvenScene})=>{
+  engine=await createOvenScene(canvas,renderFailed,(active)=>{if(active)oven.dataset.steam='';else delete oven.dataset.steam;});
   engine.resize(width,height);engine.setProgress(0);baseHandleWidth=engine.gripBounds().width;handle.style.width=`${baseHandleWidth}px`;
-  oven.dataset.renderer='webgl';render(progress);renderView(view);
+  oven.dataset.renderer='webgl';engine.setStill(isCalm());render(progress);renderView(view);
 }).catch(renderFailed);

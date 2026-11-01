@@ -2,8 +2,52 @@ import * as THREE from './vendor/three.module.min.js';
 import { CAMERA, MAX_ANGLE } from './door-math.mjs?v=solid2';
 import { getUnifiedLayout } from './layout-v4.mjs';
 
+const NOISE = `
+float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.03+vec2(17.1,9.2);a*=.5;}return v;}`;
+// Smoked glass: the room behind it stays hidden. Low flames over a bed of embers, seen dimly.
+const FIRE_FRAGMENT = `
+uniform float uTime,uHeat,uAspect;varying vec2 vUv;${NOISE}
+void main(){
+  vec2 q=vec2((vUv.x-.5)*uAspect,vUv.y);
+  float t=uTime;
+  float crest=.1+uHeat*(.07+.46*fbm(vec2(q.x*2.6,t*.55)));
+  float lick=fbm(vec2(q.x*5.2+fbm(q*2.4-vec2(0.,t*.6))*1.3,q.y*2.1-t*1.25));
+  float flame=(1.-smoothstep(crest*.25,crest+.2,vUv.y+(lick-.5)*.3))*(.42+.86*lick);
+  float bed=(1.-smoothstep(.0,.13,vUv.y))*(.32+1.05*smoothstep(.36,.72,fbm(vec2(q.x*11.,q.y*11.+t*.12))+.1*sin(t*2.3+q.x*9.)));
+  float f=clamp(max(flame,bed)*(.5+.5*uHeat),0.,1.);
+  vec3 c=vec3(f*1.02,pow(f,2.15)*.62,pow(f,4.)*.2);
+  float room=(1.-smoothstep(0.,1.,vUv.y))*(.55+.45*fbm(vec2(q.x*1.2,t*.3)));
+  c+=vec3(.15,.032,.006)*room*room*uHeat+vec3(.012,.006,.004);
+  vec2 e=abs(vUv-.5)*2.;
+  c*=1.-.72*pow(max(e.x,e.y*.94),2.6);
+  gl_FragColor=vec4(c,1.);
+}`;
+// Steam leaves through the gap at the top first, fills the opening, then rises away in thinning wisps.
+const STEAM_FRAGMENT = `
+uniform float uAge,uOpen,uAspect;varying vec2 vUv;${NOISE}
+void main(){
+  vec2 q=vec2((vUv.x-.5)*uAspect,vUv.y);
+  float rise=uAge*.2+uAge*uAge*.018;
+  vec2 w=vec2(fbm(q*1.45+vec2(uAge*.07,-rise)),fbm(q*1.45+vec2(5.2,1.3-rise)));
+  float n=fbm(vec2(q.x*2.5,q.y*1.75-rise*1.5)+(w-.5)*2.4);
+  float fine=fbm(vec2(q.x*7.,q.y*5.-rise*2.8)+w*3.);
+  float cloud=n*.78+fine*.22;
+  float open=clamp(uOpen*1.8,0.,1.);
+  float gate=smoothstep(mix(.52,-.25,open),mix(.9,.28,open),vUv.y);
+  float clear=smoothstep(1.25,4.5,uAge);
+  float amount=smoothstep(.0,.38,uAge)*smoothstep(.0,.08,uOpen);
+  float a=smoothstep(mix(.08,.74,clear),mix(.44,1.,clear),cloud)*gate*amount;
+  float side=1.-.2*smoothstep(.3,1.,abs(vUv.x-.5)*2.);
+  vec3 c=mix(vec3(.66,.62,.58),vec3(1.,.985,.96),smoothstep(.34,.72,cloud));
+  gl_FragColor=vec4(c,clamp(a*side,0.,1.)*.95);
+}`;
+const STEAM_SECONDS = 4.8;
+
 // A stationary cabinet and a solid, bevelled door. Only the door rotates.
-export async function createOvenScene(canvas, onFailure) {
+export async function createOvenScene(canvas, onFailure, onSteam = () => {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.6));
@@ -42,13 +86,21 @@ export async function createOvenScene(canvas, onFailure) {
   const rubber = new THREE.MeshStandardMaterial({ color: 0x070b0c, roughness: .98, metalness: 0 });
   const grip = new THREE.MeshStandardMaterial({ color: 0xb4935c, roughness: .34, metalness: .85 });
   const screw = new THREE.MeshStandardMaterial({ color: 0x6d5c3f, roughness: .46, metalness: .65 });
-  const glassMaterial = new THREE.MeshPhongMaterial({ color: 0x87a4a1, specular: 0xd8e8e3, shininess: 90, transparent: true, opacity: .075, side: THREE.DoubleSide, depthWrite: false });
+  const glassMaterial = new THREE.ShaderMaterial({ uniforms: { uTime:{value:0}, uHeat:{value:.8}, uAspect:{value:1} }, side: THREE.DoubleSide,
+    vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}', fragmentShader: FIRE_FRAGMENT });
+  const steamMaterial = new THREE.ShaderMaterial({ uniforms: { uAge:{value:0}, uOpen:{value:0}, uAspect:{value:1} }, transparent: true, depthTest: false, depthWrite: false,
+    vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}', fragmentShader: STEAM_FRAGMENT });
+  const steam = new THREE.Mesh(new THREE.PlaneGeometry(2,2), steamMaterial);
+  steam.frustumCulled = false; steam.renderOrder = 10; steam.visible = false;
+  scene.add(steam);
+  const fireLight = new THREE.PointLight(0xff6a1e, 0, 1.15, 1.6);
   const shadowMaterial = new THREE.ShadowMaterial({opacity:.25});
   const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
   const point = new THREE.Vector3();
   const thickness = .052, gripDepth = thickness + .044;
   let width = 1, height = 1, doorWidth = 1, doorHeight = 1, hinge = 1, arm = .7, progress = 0;
   let scheduled = 0, broken = false;
+  let looping = 0, lastFrame = 0, fireTime = 6, heat = .78, heatTarget = .78, still = false, steamAge = -1, steamUsed = false;
 
   const invalidate = () => {
     if (scheduled || broken) return;
@@ -57,6 +109,35 @@ export async function createOvenScene(canvas, onFailure) {
       if (!broken) renderer.render(scene, camera);
     });
   };
+  // Heat falls with the opening door: once it tilts, the glass is just dark glass.
+  function applyFire() {
+    const level = Math.max(0, 1 - progress * 5), flicker = .78 + .22 * Math.sin(fireTime * 9.1) * Math.sin(fireTime * 3.7 + 1.3);
+    glassMaterial.uniforms.uTime.value = fireTime;
+    glassMaterial.uniforms.uHeat.value = heat * level;
+    fireLight.intensity = .95 * heat * level * flicker;
+  }
+  function needsLoop() { return !broken && !still && (steamAge >= 0 || progress < .999); }
+  function frame(now) {
+    looping = 0;
+    if (broken) return;
+    const dt = Math.min(.05, (now - lastFrame) / 1000 || 0);
+    lastFrame = now;
+    fireTime += dt;
+    heat += (heatTarget - heat) * Math.min(1, dt * 1.4);
+    if (steamAge >= 0) {
+      steamAge += dt * Math.min(1, .22 + progress * 2.2);
+      if (steamAge > STEAM_SECONDS) { steamAge = -1; steam.visible = false; onSteam(false); }
+      else steamMaterial.uniforms.uAge.value = steamAge;
+    }
+    applyFire();
+    renderer.render(scene, camera);
+    if (needsLoop()) looping = requestAnimationFrame(frame);
+  }
+  function runLoop() {
+    if (looping || !needsLoop()) { invalidate(); return; }
+    lastFrame = performance.now();
+    looping = requestAnimationFrame(frame);
+  }
   function addMesh(parent, geometry, material, x = 0, y = 0, z = 0, casts = true) {
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(x, y, z);
@@ -112,6 +193,11 @@ export async function createOvenScene(canvas, onFailure) {
     const seal = cutout(rectangle(-wx-.009,wy1-.009,wx+.009,wy2+.009),-wx+.005,wy1+.005,wx-.005,wy2-.005);
     addMesh(door,extrude(seal,.009,.0015),rubber,0,0,thickness-.005);
     addMesh(door,new THREE.PlaneGeometry(wx*2-.01,wy2-wy1-.01),glassMaterial,0,(wy1+wy2)/2,thickness-.016,false);
+    glassMaterial.uniforms.uAspect.value = (wx*2)/(wy2-wy1);
+    steamMaterial.uniforms.uAspect.value = width/height;
+    // The fire lights the iron around the window, as if it were coming through the glass.
+    fireLight.position.set(0,wy1+(wy2-wy1)*.3,thickness+.24);
+    door.add(fireLight);
 
     // Raised solid handle: two feet, two projecting posts and a cylindrical grip.
     for (const x of [-doorWidth*.405,doorWidth*.405]) {
@@ -139,20 +225,37 @@ export async function createOvenScene(canvas, onFailure) {
         bolt.rotation.x = Math.PI/2;
       }
     }
-    // Interior warm light is confined to the oven; there are no added visual effects.
     door.rotation.x = progress*MAX_ANGLE;
     scene.updateMatrixWorld(true);
-    invalidate();
+    applyFire();
+    runLoop();
   }
+  let steamAllowed = true;
+  function setSteamAllowed(value) { steamAllowed = value; }
   function setProgress(value) {
     progress = value;
     door.rotation.x = progress*MAX_ANGLE;
     scene.updateMatrixWorld(true);
-    invalidate();
+    steamMaterial.uniforms.uOpen.value = progress;
+    if (progress > .015 && !steamUsed && steamAllowed && !still) {
+      steamUsed = true; steamAge = 0; steamMaterial.uniforms.uAge.value = 0; steam.visible = true; onSteam(true);
+    }
+    if (progress < .005) steamUsed = false;
+    applyFire();
+    runLoop();
+  }
+  // The fire surges near the end of the bake, then settles once the bread is done.
+  function setHeat(value) { heatTarget = value; runLoop(); }
+  // Reduced motion: one still frame of the fire, no steam.
+  function setStill(value) {
+    still = value;
+    if (still) { if (steamAge >= 0) onSteam(false); steamAge = -1; steam.visible = false; applyFire(); invalidate(); } else runLoop();
   }
   function setViewProgress(value) {
     // The physical door finishes first; the casing then passes outside the viewport.
     camera.zoom = 1 + .9 * value;
+    // Inside the oven only the last of the steam stays on this canvas.
+    fixed.visible = door.visible = value < .999;
     camera.updateProjectionMatrix();
     shadowMaterial.opacity = .25 * (1 - value);
     invalidate();
@@ -177,12 +280,12 @@ export async function createOvenScene(canvas, onFailure) {
     const local=door.worldToLocal(hit.point.clone());
     return { arm:local.y,depth:local.z,onHandle:!!hit.object.userData.grip,hinge };
   }
-  canvas.addEventListener('webglcontextlost',(event)=>{event.preventDefault();broken=true;cancelAnimationFrame(scheduled);onFailure();});
+  canvas.addEventListener('webglcontextlost',(event)=>{event.preventDefault();broken=true;cancelAnimationFrame(scheduled);cancelAnimationFrame(looping);onFailure();});
   function dispose() {
-    broken=true; cancelAnimationFrame(scheduled);
+    broken=true; cancelAnimationFrame(scheduled); cancelAnimationFrame(looping);
     clearGeometry(fixed); clearGeometry(door);
-    [face,edge,interior,rubber,grip,screw,glassMaterial,shadowMaterial].forEach(material=>material.dispose());
+    [face,edge,interior,rubber,grip,screw,glassMaterial,steamMaterial,shadowMaterial].forEach(material=>material.dispose());
     steelTexture.dispose(); renderer.dispose();
   }
-  return { resize,setProgress,setViewProgress,gripBounds,pick,dispose };
+  return { resize,setProgress,setViewProgress,setHeat,setStill,setSteamAllowed,gripBounds,pick,dispose };
 }
