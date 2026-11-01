@@ -87,15 +87,26 @@ function setProgress(value,animate=false){
 export function enterBakery(){setProgress(1,false);}
 function endDrag(event) {
   if(!drag||event.pointerId!==drag.id)return;
-  const tappedHandle=!drag.moved&&drag.onHandle&&event.type==='pointerup';
+  // A mouse click rarely stays perfectly still, so a few pixels still count as a tap.
+  const released=event.type==='pointerup',tappedHandle=released&&drag.onHandle&&Math.abs(drag.lastY-drag.startY)<8;
+  // Past halfway on the way down, letting go finishes the opening. Below that, or pushing back, the door holds.
+  const finish=released&&(progress>=.995||(drag.direction>0&&progress>=.5));
   if(drag.moved)lastPointerMove=performance.now();
   const pointerId=drag.id;drag=null;delete oven.dataset.dragging;
   if(oven.hasPointerCapture(pointerId))oven.releasePointerCapture(pointerId);
   if(tappedHandle)setProgress(progress>.5?0:1,true);
-  else{announce();if(event.type==='pointerup'&&progress>=.995){render(1);moveView(1,true);}}
+  else if(finish)setProgress(1,true);
+  else announce();
 }
+// Without the 3D door there is nothing to drag, so a pull on the handle simply opens or closes it.
+let plainPull=null;
+oven.addEventListener('pointerup',(event)=>{
+  const pull=plainPull;plainPull=null;
+  if(pull&&event.pointerId===pull.id&&Math.abs(event.clientY-pull.y)>12){lastPointerMove=performance.now();setProgress(event.clientY>pull.y?1:0,true);}
+});
 oven.addEventListener('pointerdown',(event)=>{
   oven.dataset.pointer='';
+  if((isCalm()||failed)&&event.button===0&&event.target.closest('#handle'))plainPull={id:event.pointerId,y:event.clientY};
   if(event.button!==0||!event.isPrimary||isCalm()||drag||!engine||view>0||viewTween||event.target.closest('button,a'))return;
   const onHandle=!!event.target.closest('#handle');
   const hit=onHandle?{depth:gripBounds.depth,hinge:gripBounds.hinge,onHandle:true}:engine.pick(event.clientX,event.clientY);
@@ -110,6 +121,7 @@ oven.addEventListener('pointermove',(event)=>{
   if(Math.abs(event.clientY-drag.startY)>3)drag.moved=true;
   if(!drag.moved)return;
   const direction=Math.sign(event.clientY-drag.lastY);
+  if(direction)drag.direction=direction;
   if((progress>.999&&direction<0)||(progress<.001&&direction>0))drag.arm=armAt(progress,drag.lastY/height,drag.depth,drag.hinge);
   render(progressAt(event.clientY/height,drag.arm,drag.depth,drag.hinge));drag.lastY=event.clientY;
 });

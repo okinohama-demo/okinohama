@@ -64,11 +64,10 @@ h2 { font:700 clamp(30px,3.3vw,49px)/1.7 'Shippori Mincho B1',serif; letter-spac
 .js-reveal [data-reveal] img,.js-reveal [data-reveal] svg,.js-reveal [data-reveal] video { transition:clip-path 1100ms cubic-bezier(.22,1,.36,1),transform 1500ms cubic-bezier(.22,1,.36,1); }
 
 /* Counter */
-.counter-top { position:relative; }
+.section-head { padding:clamp(48px,6vw,84px) var(--page-gutter) clamp(28px,3vw,44px); }
 .counter-photo { position:relative; overflow:hidden; }
-.counter-photo img { display:block; width:100%; height:clamp(500px,58vw,760px); object-fit:cover; object-position:50% 57%; animation:counter-drift 26s ease-in-out infinite alternate; transform-origin:30% 60%; }
+.counter-photo img { display:block; width:100%; height:clamp(420px,min(58vw,76svh),760px); object-fit:cover; object-position:50% 57%; animation:counter-drift 26s ease-in-out infinite alternate; transform-origin:30% 60%; }
 @keyframes counter-drift { from { transform:scale(1.04) translateX(-1%); } to { transform:scale(1.13) translateX(1.5%); } }
-.section-head { position:absolute; left:0; bottom:-1px; width:min(58%,700px); background:var(--sheet); padding:32px var(--page-gutter) 22px; }
 
 /* Bake stage: one bread at a time, the oven clock keeps moving by itself. */
 .bake-stage { --tone:#f2e6cc; position:relative; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); grid-template-areas:"bread copy" "clock clock"; align-items:center; gap:0 4vw; overflow:hidden; padding:clamp(24px,4vw,60px) var(--page-gutter) clamp(24px,3vw,44px); background:var(--tone); transition:background-color 1100ms ease; }
@@ -124,9 +123,16 @@ h2 { font:700 clamp(30px,3.3vw,49px)/1.7 'Shippori Mincho B1',serif; letter-spac
 /* Parcel */
 .parcel-scene { position:relative; padding:0 0 100px; }
 .parcel-heading { position:relative; z-index:1; padding:15px var(--page-gutter) 42px; }
-.parcel-photo { width:77%; max-width:1280px; margin-left:auto; overflow:hidden; }
+.parcel-photo { overflow:hidden; }
 .parcel-photo img { display:block; width:100%; height:auto; }
-.parcel-description { position:relative; min-width:0; width:50%; max-width:680px; margin:-120px auto 0 var(--page-gutter); background:var(--sheet); padding:35px 36px 0 0; }
+.parcel-description { min-width:0; padding:35px var(--page-gutter) 0; }
+@media(min-width:901px) {
+ .parcel-scene { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); grid-template-rows:auto 1fr; grid-template-areas:"head photo" "copy photo"; column-gap:clamp(40px,5vw,88px); padding-top:clamp(70px,9vw,120px); }
+ .parcel-heading { grid-area:head; padding:0 0 28px var(--page-gutter); }
+ .parcel-description { grid-area:copy; padding:0 0 0 var(--page-gutter); }
+ .parcel-photo { grid-area:photo; position:relative; }
+ .parcel-photo img { position:absolute; inset:0; height:100%; object-fit:cover; }
+}
 .parcel-description h3 { font:700 clamp(24px,2.4vw,33px)/1.6 'Shippori Mincho B1',serif; }
 .parcel-contents { margin-top:12px; font-size:14px; line-height:2; }
 .parcel-calc { margin-top:22px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -183,7 +189,7 @@ footer small { flex-basis:100%; font-size:12px; color:var(--quiet); line-height:
  .chapter-nav { justify-content:center; padding-inline:12px; }
  .nav-links { width:100%; justify-content:space-between; }
  .counter-photo img { height:clamp(320px,88vw,460px); object-position:53% 55%; }
- .section-head { position:static; width:100%; padding:28px var(--page-gutter) 22px; }
+ .section-head { padding:36px var(--page-gutter) 24px; }
  .section-head h2 { font-size:28px; }
  .bake-stage { display:flex; flex-direction:column; align-items:stretch; padding:8px var(--page-gutter) 22px; }
  .stage-bread { width:calc(100% + 2 * var(--page-gutter)); margin:0 calc(-1 * var(--page-gutter)); max-height:none; aspect-ratio:1.04; }
@@ -201,8 +207,7 @@ footer small { flex-basis:100%; font-size:12px; color:var(--quiet); line-height:
  .letter-scene:not(.is-rolling) { padding-bottom:52px; }
  .parcel-heading { padding-top:0; padding-bottom:26px; }
  .parcel-heading h2 { font-size:29px; }
- .parcel-photo { width:100%; }
- .parcel-description { width:100%; max-width:100%; margin:0; padding:26px var(--page-gutter) 0; }
+ .parcel-description { padding:26px var(--page-gutter) 0; }
  .parcel-description h3 { font-size:23px; }
  .parcel-scene { padding-bottom:56px; }
  .shop-information { padding:30px var(--page-gutter) 30px; }

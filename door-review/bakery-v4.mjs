@@ -1,4 +1,4 @@
-import { enterBakery, doorReady } from './door-v4.mjs?v=v4';
+import { enterBakery, doorReady } from './door-v4.mjs?v=v4d';
 import { setupBakeryNavigation } from './bakery-navigation.mjs';
 import { PRODUCTS, PARCEL_PRICE, SHIPPING, parcelTotals } from './bakery-data-v4.mjs';
 
