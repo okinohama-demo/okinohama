@@ -207,7 +207,7 @@ function renderFailed(){
 }
 oven.dataset.bake='baking';
 resize();motionChanged();render(0);
-export const doorReady=import('./door-v4-scene.mjs?v=v4e').then(async({createOvenScene})=>{
+export const doorReady=import('./door-v4-scene.mjs?v=v4f').then(async({createOvenScene})=>{
   engine=await createOvenScene(canvas,renderFailed,(active)=>{if(active)oven.dataset.steam='';else delete oven.dataset.steam;});
   engine.resize(width,height);engine.setProgress(0);baseHandleWidth=engine.gripBounds().width;handle.style.width=`${baseHandleWidth}px`;
   oven.dataset.renderer='webgl';engine.setStill(isCalm());render(progress);renderView(view);

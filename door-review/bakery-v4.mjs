@@ -1,4 +1,4 @@
-import { enterBakery, doorReady, startBake } from './door-v4.mjs?v=v4e';
+import { enterBakery, doorReady, startBake } from './door-v4.mjs?v=v4f';
 import { setupBakeryNavigation } from './bakery-navigation.mjs';
 import { PRODUCTS, PARCEL_PRICE, SHIPPING, parcelTotals } from './bakery-data-v4.mjs';
 
@@ -69,7 +69,7 @@ const items=PRODUCTS.map((product,index)=>{
  const item=document.createElement('div');
  item.className='stage-item';
  const [x,y,w,h]=product.view.split(' ');
- item.innerHTML=`<svg viewBox="${product.view}" role="img" aria-label="${product.alt}"><defs><clipPath id="stage-crop-${index}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><image href="assets/open/bread-lineup-v1.webp" width="1536" height="1024" clip-path="url(#stage-crop-${index})"/></svg>`;
+ item.innerHTML=`<svg viewBox="${product.view}" role="img" aria-label="${product.alt}"><defs><clipPath id="stage-crop-${index}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><image href="${new URL('assets/open/bread-lineup-v1.webp', import.meta.url).href}" width="1536" height="1024" clip-path="url(#stage-crop-${index})"/></svg>`;
  breadBox.append(item);
  const button=document.createElement('button');
  button.type='button';button.textContent=product.time;button.setAttribute('aria-pressed','false');

@@ -75,7 +75,7 @@ export async function createOvenScene(canvas, onFailure, onSteam = () => {}) {
   rimLight.position.set(2.5, .15, 1.2);
   scene.add(rimLight);
 
-  const steelTexture = await new THREE.TextureLoader().loadAsync('assets/open/steel.webp');
+  const steelTexture = await new THREE.TextureLoader().loadAsync(new URL('assets/open/steel.webp', import.meta.url).href);
   steelTexture.colorSpace = THREE.SRGBColorSpace;
   steelTexture.wrapS = steelTexture.wrapT = THREE.RepeatWrapping;
   steelTexture.repeat.set(.9, 3.5);

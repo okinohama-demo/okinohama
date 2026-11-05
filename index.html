@@ -1,282 +1,100 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>おきのはま製パン｜徳島市沖浜町のパン屋</title>
-  <meta name="description" content="徳島市沖浜町で親子二代。食パン、塩パン、あんパンなど、毎日のパンを焼く架空の町のパン屋です。定番セットは全国へ冷凍便でお届けします。">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f4ead8">
-  <link rel="canonical" href="https://okinohama-demo.github.io/okinohama/">
-  <meta property="og:locale" content="ja_JP">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="おきのはま製パン｜徳島市沖浜町のパン屋">
-  <meta property="og:description" content="近くのいつもに。遠くの楽しみに。親子二代で毎日のパンを焼く、架空の町のパン屋です。">
-  <meta property="og:url" content="https://okinohama-demo.github.io/okinohama/">
-  <meta property="og:image" content="https://okinohama-demo.github.io/okinohama/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2732%27 fill=%27%23a64b28%27/%3E%3Ctext x=%2732%27 y=%2744%27 text-anchor=%27middle%27 font-size=%2734%27 fill=%27%23fffaf0%27%3E%E6%B2%96%3C/text%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">本文へ移動</a>
-
-  <div class="demo-note" role="note">
-    <span>架空のパン屋の見本サイトです</span>
-    <span class="demo-note__wide">表示される店舗・住所・価格・感想は実在しません</span>
-  </div>
-
-  <header class="site-header" data-header>
-    <a class="brand" href="#top" aria-label="おきのはま製パン トップへ">
-      <span class="brand__stamp" aria-hidden="true">沖</span>
-      <span><b>おきのはま製パン</b><small>徳島市沖浜町・1999年から</small></span>
-    </a>
-    <nav class="desktop-nav" aria-label="ページ内の案内">
-      <a href="#today">今日の棚</a>
-      <a href="#story">私たち</a>
-      <a href="#delivery">全国便</a>
-      <a href="#shop">店の案内</a>
-    </nav>
-    <button class="cart-button" type="button" data-open-cart aria-haspopup="dialog">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L20 8H6.1M10 20h.01M17 20h.01"/></svg>
-      <span class="cart-button__label">買い物かご</span>
-      <output class="cart-count" data-cart-count aria-label="かごの商品数">0</output>
-    </button>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#1b1a18"><meta name="description" content="徳島市沖浜町の架空のパン屋の制作見本。窯の扉を開けると、朝から順に焼き上がるパンと、金曜に焼いて送るパン便。"><link rel="canonical" href="https://okinohama-demo.github.io/okinohama/"><title>おきのはま製パン｜窯から、店先へ</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="door-review/door.css?v=solid3"><link rel="stylesheet" href="door-review/top-look.css?v=look1"><link rel="stylesheet" href="door-review/top-unified.css?v=unified1"><link rel="stylesheet" href="door-review/bakery-v4.css?v=v4f">
+<link rel="modulepreload" href="door-review/door-v4-scene.mjs?v=v4f"><link rel="preload" href="door-review/assets/open/morning-batch-v1.webp" as="image">
+</head><body class="bakery-v4"><main>
+<div class="oven" id="oven" data-position="closed" data-view="framed" data-version="bakery-v4" data-renderer="loading">
+  <section class="chamber" aria-labelledby="bread-title">
+    <picture class="hero-scene"><img class="bread" src="door-review/assets/open/morning-batch-v1.webp" alt="窯の天板に並ぶ、焼きたてのパン" width="1536" height="1024" fetchpriority="high" draggable="false"></picture>
+    <div class="chamber-vignette" aria-hidden="true"></div>
+    <div class="bread-info" id="bread-info" aria-hidden="true">
+      <h1 id="bread-title">朝は<br>この窯から</h1>
+      <a class="hero-next" href="#today" tabindex="-1" inert>今日のパンへ <span aria-hidden="true">↓</span></a>
+      <small class="hero-disclaimer">架空の店の制作見本です。</small>
+    </div>
+  </section>
+  <canvas class="oven-canvas" id="oven-canvas" aria-hidden="true"></canvas>
+  <div class="fallback-door" id="door-leaf" aria-hidden="true"></div>
+  <header class="oven-header">
+    <p class="oven-wordmark">おきのはま製パン</p>
+    <p class="oven-origin">徳島・沖浜町　　一九九九年から</p>
   </header>
-
-  <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero__copy">
-        <p class="place-line"><span>徳島市沖浜町</span><span>朝7時から</span></p>
-        <h1 id="hero-title"><span>近くのいつもに。</span><span>遠くの楽しみに。</span></h1>
-        <p class="hero__lead">父が店を開いて27年。今は親子で、角食も塩パンも、毎日食べたくなる味を焼いています。金曜には、同じパンを全国便の箱へ。</p>
-        <div class="hero__actions">
-          <a class="button button--ink" href="#today">今日のパンを見る</a>
-          <a class="text-link" href="#delivery">全国便の中身を見る</a>
-        </div>
-        <dl class="open-card" aria-label="本日の営業案内">
-          <div><dt>本日</dt><dd>7:00–18:00</dd></div>
-          <div><dt>焼き上がり</dt><dd>角食 9:30／塩パン 11:00</dd></div>
-          <div><dt>定休日</dt><dd>日曜・月曜</dd></div>
-        </dl>
-      </div>
-      <figure class="hero__photo" data-photo-reveal>
-        <img src="assets/hero.webp" alt="パンが並ぶ店内で、店員が売り場を整えている様子" width="2200" height="1467">
-        <figcaption><span>朝の売り場</span><span>7:00、沖浜町で開けます</span></figcaption>
-      </figure>
-      <div class="hero__seal" aria-hidden="true"><span>親子二代</span><b>27</b><span>年</span></div>
-    </section>
-
-    <section class="route" aria-label="店から全国便まで">
-      <div class="route__line" aria-hidden="true"><i data-route-line></i></div>
-      <p class="route__start"><b>沖浜町の朝</b><span>店のオーブンから</span></p>
-      <p class="route__middle">いつものパンを<br>焼きたてで並べる</p>
-      <p class="route__end"><b>金曜の午後</b><span>全国便の箱へ</span></p>
-    </section>
-
-    <section class="today section" id="today" aria-labelledby="today-title">
-      <header class="section-head">
-        <p class="section-no">01／今日の棚</p>
-        <h2 id="today-title">まずは、<br>いつもの六つから。</h2>
-        <p>奇をてらわず、明日も食べたいものを。価格と焼き上がりは見本用です。</p>
-      </header>
-
-      <div class="bread-stage">
-        <figure class="bread-stage__photo" data-photo-reveal>
-          <img src="assets/shelves.webp" alt="食事パンや菓子パンが並ぶガラスのパン棚" width="1800" height="1133" loading="lazy" decoding="async">
-          <figcaption>午前11時ごろ、いちばん種類がそろいます。</figcaption>
-        </figure>
-        <ol class="bread-list">
-          <li data-product>
-            <span class="bread-list__time">7:00</span>
-            <div><h3>沖浜の朝・角食</h3><p>湯種でもっちり。毎朝のトーストに。</p></div>
-            <p class="bread-list__spec">1斤・税込 <b>420円</b></p>
-          </li>
-          <li data-product>
-            <span class="bread-list__time">8:30</span>
-            <div><h3>自家炊きあんパン</h3><p>北海道小豆の粒あんを、薄い生地で包みます。</p></div>
-            <p class="bread-list__spec">1個・税込 <b>230円</b></p>
-          </li>
-          <li data-product>
-            <span class="bread-list__time">9:30</span>
-            <div><h3>鳴門金時の小さな山</h3><p>角切りの鳴門金時と白ごま。手のひらサイズ。</p></div>
-            <p class="bread-list__spec">1個・税込 <b>260円</b></p>
-          </li>
-          <li data-product>
-            <span class="bread-list__time">11:00</span>
-            <div><h3>沖浜塩パン</h3><p>底はかりっと、中はふわり。店で一番早くなくなります。</p></div>
-            <p class="bread-list__spec">1個・税込 <b>180円</b></p>
-          </li>
-          <li data-product>
-            <span class="bread-list__time">11:30</span>
-            <div><h3>れんこん焼きカレー</h3><p>徳島れんこんの歯ざわりを残した、中辛の焼きカレー。</p></div>
-            <p class="bread-list__spec">1個・税込 <b>290円</b></p>
-          </li>
-          <li data-product>
-            <span class="bread-list__time">14:00</span>
-            <div><h3>阿波晩茶とくるみ</h3><p>茶葉の香りと、くるみのやさしい渋み。</p></div>
-            <p class="bread-list__spec">1個・税込 <b>280円</b></p>
-          </li>
-        </ol>
-      </div>
-      <p class="allergen-note">小麦・乳・卵・くるみなどを同じ厨房で扱います。詳しい原材料は店頭でお尋ねください。</p>
-    </section>
-
-    <section class="story section" id="story" aria-labelledby="story-title">
-      <div class="story__year" aria-hidden="true">1999</div>
-      <figure class="story__photo" data-photo-reveal>
-        <img src="assets/hands.webp" alt="粉をつけた両手でパン生地を折り込む様子" width="1800" height="1200" loading="lazy" decoding="async">
-        <figcaption>同じ生地でも、湿度を見て水の量を変えます。</figcaption>
-      </figure>
-      <div class="story__copy">
-        <p class="section-no">02／私たち</p>
-        <h2 id="story-title">父の「いつもの」を、<br>私が次の朝へ。</h2>
-        <div class="owner-letter">
-          <p>父が沖浜町に店を開いたのは、1999年の春でした。私は小学生で、学校から帰ると袋を折るのが手伝いでした。</p>
-          <p>店を継いでからも、角食とあんパンの配合は変えていません。変えたのは、金曜日に全国便を焼くようになったこと。県外へ越した昔のお客さまから「また食べたい」と手紙をいただいたのがきっかけです。</p>
-          <p>朝に顔を合わせる方にも、遠くで箱を待つ方にも、同じオーブンからお届けします。</p>
-        </div>
-        <p class="owner-sign"><span>二代目 店主（架空）</span><b>田村 菜穂</b></p>
-      </div>
-      <blockquote>「塩パンを一つ」だった小学生が、今は自分の子どもと来てくれます。<cite>常連のお客さまの声（架空）</cite></blockquote>
-    </section>
-
-    <section class="delivery section" id="delivery" aria-labelledby="delivery-title">
-      <div class="delivery__intro">
-        <p class="section-no">03／沖浜から全国へ</p>
-        <h2 id="delivery-title">金曜に焼いて、<br>その日のうちに箱へ。</h2>
-        <p>遠くへ出すのは、店で長く作ってきた定番だけ。急速冷凍し、食べ方を書いた小さな紙と一緒に発送します。</p>
-      </div>
-
-      <div class="parcel" data-parcel>
-        <div class="parcel__twine" aria-hidden="true"></div>
-        <div class="parcel__label">
-          <p class="parcel__from">TOKUSHIMA<br>OKINOHAMA</p>
-          <p class="parcel__name">沖浜いつものパン便</p>
-          <p class="parcel__stamp">冷凍便<br>金曜発送</p>
-        </div>
-        <ul class="parcel__contents">
-          <li><span>沖浜の朝・角食</span><b>1斤</b></li>
-          <li><span>沖浜塩パン</span><b>2個</b></li>
-          <li><span>自家炊きあんパン</span><b>2個</b></li>
-          <li><span>鳴門金時の小さな山</span><b>2個</b></li>
-          <li><span>阿波晩茶とくるみ</span><b>1個</b></li>
-        </ul>
-        <div class="parcel__price"><span>8点入り</span><b>3,200円</b><small>税込・送料別</small></div>
-        <button class="button button--green" type="button" data-add-cart>このセットを選ぶ</button>
-      </div>
-
-      <dl class="shipping-notes">
-        <div><dt>注文締切</dt><dd>水曜 18:00</dd></div>
-        <div><dt>発送</dt><dd>毎週 金曜</dd></div>
-        <div><dt>送料</dt><dd>全国一律 980円<br><small>北海道・沖縄は1,480円（見本）</small></dd></div>
-        <div><dt>保存</dt><dd>冷凍で14日<br><small>解凍後は当日中</small></dd></div>
-      </dl>
-
-      <details class="reheat">
-        <summary>おいしい温め直し方</summary>
-        <p>袋から出して常温で30分。霧吹きを一度かけ、予熱したトースターで2〜3分。角食は凍ったまま焼けます。</p>
-      </details>
-    </section>
-
-    <section class="shop section" id="shop" aria-labelledby="shop-title">
-      <div class="shop__copy">
-        <p class="section-no">04／店の案内</p>
-        <h2 id="shop-title">散歩の途中に、<br>一つからどうぞ。</h2>
-        <dl class="shop-info">
-          <div><dt>住所</dt><dd>徳島県徳島市沖浜町二丁目18-3<br><small>見本用の架空住所です。地図は掲載していません。</small></dd></div>
-          <div><dt>営業時間</dt><dd>7:00–18:00<br><small>売り切れ次第、早く閉める日があります。</small></dd></div>
-          <div><dt>定休日</dt><dd>日曜・月曜</dd></div>
-          <div><dt>駐車場</dt><dd>店の東側に3台／自転車置き場あり</dd></div>
-          <div><dt>支払い</dt><dd>現金・クレジットカード・交通系IC</dd></div>
-        </dl>
-      </div>
-      <figure class="shop__photo" data-photo-reveal>
-        <img src="assets/counter.webp" alt="白い布の上に丸いパンやバゲットが並ぶ売り場" width="1800" height="1200" loading="lazy" decoding="async">
-        <figcaption>写真は店舗イメージです。</figcaption>
-      </figure>
-      <div class="weekly-note">
-        <p>今週のひとこと</p>
-        <strong>9月25日（金）は<br>れんこん焼きカレーを<br>いつもの倍、焼きます。</strong>
-        <small>更新例・架空のお知らせ</small>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="site-footer__brand"><span class="brand__stamp" aria-hidden="true">沖</span><b>おきのはま製パン</b></div>
-    <p>徳島県徳島市沖浜町二丁目18-3（架空住所）<br>7:00–18:00／日曜・月曜休み</p>
-    <nav aria-label="フッターの案内"><a href="#today">今日の棚</a><a href="#story">私たち</a><a href="#delivery">全国便</a><a href="#shop">店の案内</a></nav>
-    <p class="site-footer__legal">このサイトは架空のパン屋の制作見本です。店名・人物・住所・価格・商品・感想は実在しません。写真：Unsplash（詳細は CREDITS.md）</p>
-  </footer>
-
-  <dialog class="cart-dialog" id="cart-dialog" aria-label="見本の買い物かご">
-    <form method="dialog" class="cart-dialog__shell">
-      <header>
-        <p>見本の買い物かご</p>
-        <button class="icon-button" value="close" aria-label="買い物かごを閉じる">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </button>
-      </header>
-
-      <div class="cart-step" data-cart-step="empty">
-        <h2 id="cart-title">かごは空です。</h2>
-        <p>全国便の「このセットを選ぶ」から商品を入れられます。</p>
-        <button class="button button--ink" value="close">全国便へ戻る</button>
-      </div>
-
-      <div class="cart-step" data-cart-step="cart" hidden>
-        <p class="step-mark">1／3　内容の確認</p>
-        <h2>沖浜いつものパン便</h2>
-        <div class="cart-item">
-          <div><b>8点入り</b><span>冷凍・金曜発送</span></div>
-          <div class="quantity" aria-label="数量">
-            <button type="button" data-qty-minus aria-label="数量を1減らす">−</button>
-            <output data-qty>1</output>
-            <button type="button" data-qty-plus aria-label="数量を1増やす">＋</button>
-          </div>
-          <strong data-subtotal>3,200円</strong>
-        </div>
-        <dl class="cart-total"><div><dt>商品</dt><dd data-subtotal>3,200円</dd></div><div><dt>送料（見本）</dt><dd>980円</dd></div><div><dt>合計</dt><dd data-total>4,180円</dd></div></dl>
-        <button class="button button--green" type="button" data-next="delivery">お届け方法へ</button>
-      </div>
-
-      <div class="cart-step" data-cart-step="delivery" hidden>
-        <p class="step-mark">2／3　お届け方法</p>
-        <h2>金曜発送の冷凍便</h2>
-        <fieldset>
-          <legend>受け取り時間</legend>
-          <label><input type="radio" name="time" value="指定なし" checked><span>指定なし</span></label>
-          <label><input type="radio" name="time" value="午前中"><span>午前中</span></label>
-          <label><input type="radio" name="time" value="18–20時"><span>18–20時</span></label>
-        </fieldset>
-        <p class="safe-note">見本のため、氏名・住所・カード番号は入力しません。実際の注文や決済は発生しません。</p>
-        <div class="dialog-actions"><button class="text-button" type="button" data-back="cart">内容確認に戻る</button><button class="button button--green" type="button" data-next="complete">見本の注文を完了</button></div>
-      </div>
-
-      <div class="cart-step cart-complete" data-cart-step="complete" hidden>
-        <div class="complete-stamp" aria-hidden="true">承</div>
-        <p class="step-mark">3／3　体験完了</p>
-        <h2>箱をしめました。</h2>
-        <p>ここまでが見本の注文体験です。注文情報は送信・保存されていません。</p>
-        <button class="button button--ink" value="close">サイトへ戻る</button>
-      </div>
-    </form>
-  </dialog>
-
-  <div class="opening" data-opening aria-hidden="true">
-    <div class="opening__paper opening__paper--left"><span>おきのはま</span></div>
-    <div class="opening__paper opening__paper--right"><span>製パン</span></div>
-    <div class="opening__knot"></div>
+  <div class="handle" id="handle" role="slider" tabindex="0" aria-label="オーブンの扉" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="閉じています" aria-orientation="vertical" aria-describedby="gesture-help" aria-controls="oven-canvas">
+    <img src="door-review/assets/open/handle.webp" alt="" width="672" height="98" draggable="false">
   </div>
+  <p class="door-instruction" id="gesture-help">取っ手を下に引いて、開ける</p>
+  <div class="fixed-controls"><a class="skip-door" href="#today">扉を開けずに、パンを見る</a><button class="toggle-door" id="toggle-door" type="button" aria-controls="door-leaf">扉を開ける</button></div>
+  <div class="motion-note" id="motion-note" hidden><span id="motion-message">動きを減らす設定になっています。</span><button type="button" id="motion-toggle">扉の動きを試す</button></div>
+  <p class="render-note" id="render-note" hidden>立体表示を読み込めませんでした。右下のボタンで扉を開閉できます。</p>
+  <p class="sr-only" id="door-status" role="status" aria-live="polite"></p>
+  <noscript><p class="no-script">扉を動かすにはJavaScriptを有効にしてください。</p></noscript>
+  <div class="bake-loader" id="bake-loader" aria-hidden="true">
+    <p class="oven-wordmark">おきのはま製パン</p>
+    <svg class="bake-dial" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" class="dial-rim"/><g id="dial-ticks"></g><line id="dial-needle" x1="100" y1="112" x2="100" y2="30" class="dial-needle"/><circle cx="100" cy="100" r="7" class="dial-pin"/></svg>
+    <p class="bake-temp"><span id="bake-temp">20</span>℃</p>
+    <p class="bake-caption" id="bake-caption">窯を温めています</p>
+  </div>
+</div>
 
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
-  <script defer src="script.js"></script>
-</body>
-</html>
+<div id="chapters" hidden inert>
+<nav class="chapter-nav" aria-label="ページ内の案内" hidden inert><a class="nav-home" href="#oven" aria-label="窯へ戻る">おきのはま製パン</a><div class="nav-links"><a href="#today">パン</a><a href="#story">手紙</a><a href="#delivery">パン便</a><a href="#shop">店</a></div></nav>
+
+<section class="counter-scene" id="today" aria-labelledby="today-title">
+  <header class="section-head"><p class="eyebrow">毎日のパン</p><h2 id="today-title">朝から順に、<br>焼いています。</h2></header>
+  <figure class="counter-photo"><img src="door-review/assets/open/bakery-counter-v1.webp" width="1536" height="1024" alt="朝の光が入る木の台に、食パン、あんパン、塩パンが並ぶ売り場" loading="lazy"></figure>
+  <div class="bake-stage" id="bake-stage" data-running="false">
+    <div class="stage-bread" id="stage-bread" role="group" aria-label="焼き上がったパンの写真。左右になぞると前後のパンへ移ります"></div>
+    <div class="stage-copy" id="stage-copy">
+      <p class="stage-time"><strong id="stage-time">7:00</strong><span>ごろ 焼き上がり</span></p>
+      <h3 id="stage-name"></h3>
+      <p class="stage-description" id="stage-description"></p>
+      <p class="stage-price"><small id="stage-unit">1斤</small><strong id="stage-price">420</strong><small>円（税込）</small></p>
+    </div>
+    <div class="stage-clock" id="stage-clock" role="group" aria-label="焼き上がりの時刻でパンを選ぶ"></div>
+  </div>
+  <p class="fine-print counter-note">焼き上がりは目安です。商品・価格は制作見本です。</p>
+</section>
+
+<section class="letter-scene" id="story" aria-labelledby="story-title">
+  <div class="letter-head"><p class="eyebrow">店主の手紙</p><h2 id="story-title">父の「いつもの」を<br>次の朝へ</h2></div>
+  <div class="roll" id="letter-roll" hidden aria-hidden="true"><div class="roll-stage"><div class="roll-track" id="roll-track">
+    <div class="roll-head"><span class="roll-eyebrow">店主の手紙</span><span class="roll-title">父の「いつもの」を</span><span class="roll-title">次の朝へ</span></div>
+    <span class="roll-col">父が沖浜町に店を開いたのは、</span><span class="roll-col">一九九九年の春でした。</span><span class="roll-col">学校から帰ると、</span><span class="roll-col">袋を折るのが</span><span class="roll-col is-end">私の手伝いでした。</span>
+    <span class="roll-col">店を継いでからも、</span><span class="roll-col">山型食パンとあんパンの</span><span class="roll-col">配合は変えていません。</span><span class="roll-col is-end">今も、同じ窯で焼いています。</span>
+    <span class="roll-col">朝に顔を合わせる方にも、</span><span class="roll-col">遠くでパンを待つ方にも。</span><span class="roll-col">同じ窯から、</span><span class="roll-col is-end">いつものパンをお届けします。</span>
+    <span class="roll-col roll-sign">二代目店主（架空）　田村 菜穂</span>
+  </div></div></div>
+  <div class="letter"><p>父が沖浜町に店を開いたのは、1999年の春でした。学校から帰ると、袋を折るのが私の手伝いでした。</p><p>店を継いでからも、山型食パンとあんパンの配合は変えていません。今も、同じ窯で焼いています。</p><p>朝に顔を合わせる方にも、遠くでパンを待つ方にも。同じ窯から、いつものパンをお届けします。</p><p class="signature"><small>二代目店主（架空）</small>田村 菜穂</p></div>
+</section>
+
+<section class="parcel-scene" id="delivery" aria-labelledby="delivery-title">
+  <header class="parcel-heading"><p class="eyebrow">沖浜から、全国へ</p><h2 id="delivery-title">金曜に焼いて、<br>冷凍便で食卓へ。</h2></header>
+  <figure class="parcel-photo" data-reveal><img src="door-review/assets/open/bread-parcel-v1.webp" width="1536" height="1024" loading="lazy" alt="食パンと塩パン、あんパン、鳴門金時のパン、くるみのパンを詰めた箱"></figure>
+  <div class="parcel-description">
+    <h3>沖浜いつものパン便</h3>
+    <p class="parcel-contents">山型食パン1斤。塩パンとあんパン、鳴門金時のパンを各2個。阿波晩茶とくるみのパンを1個。</p>
+    <form class="parcel-calc" id="parcel-calc" aria-label="送料込みの合計を計算する">
+      <fieldset class="calc-region"><legend>お届け先</legend>
+        <label><input type="radio" name="region" value="standard" checked><span>北海道・沖縄以外</span></label>
+        <label><input type="radio" name="region" value="remote"><span>北海道・沖縄</span></label>
+      </fieldset>
+      <div class="calc-quantity"><span id="qty-label">箱の数</span><div class="stepper" role="group" aria-labelledby="qty-label"><button type="button" id="qty-minus" aria-label="1箱へらす">−</button><output id="qty-value" aria-live="polite">1</output><button type="button" id="qty-plus" aria-label="1箱ふやす">＋</button></div></div>
+      <p class="calc-total"><span class="calc-label">送料込みの合計</span><span class="calc-amount"><strong id="calc-total">3,020</strong><span>円</span></span><span class="calc-breakdown" id="calc-breakdown">パン便 2,040円（税込）＋送料 980円</span></p>
+    </form>
+    <p class="parcel-terms">水曜18:00締切、毎週金曜発送。製造日から冷凍で14日、解凍後は当日中にお召し上がりください。</p>
+    <p class="fine-print">価格・送料・発送条件は見本用です。注文・決済はできません。</p>
+  </div>
+</section>
+
+<section class="shop-scene" id="shop" aria-labelledby="shop-title">
+  <figure class="shop-photo" data-reveal><svg viewBox="0 88 1536 936" preserveAspectRatio="xMidYMin slice" role="img" aria-label="木の扉とガラス窓のある、おきのはま製パンの店先"><image href="door-review/assets/open/shop-front-v1.webp" width="1536" height="1024"/><text x="768" y="196" text-anchor="middle" class="shop-sign">おきのはま製パン</text></svg></figure>
+  <div class="shop-information">
+    <div class="shop-lead"><p class="eyebrow">店の案内</p><h2 id="shop-title">沖浜町で、<br>朝七時から。</h2></div>
+    <div class="shop-time"><p class="shop-status" id="shop-status" hidden></p><p class="shop-hours">7:00–18:00</p><p class="shop-closed">日曜・月曜休み</p><p class="fine-print">売り切れ次第、早く閉める日があります。</p></div>
+    <dl><div><dt>住所</dt><dd>徳島県徳島市沖浜町二丁目18-3<br><small>見本用の架空住所です。</small></dd></div><div><dt>駐車場</dt><dd>店の東側に3台<br>自転車置き場あり</dd></div><div><dt>支払い</dt><dd>現金・クレジットカード・交通系IC</dd></div></dl>
+  </div>
+  <footer><p>おきのはま製パン</p><a href="#oven">窯へ戻る ↑</a><small>架空の店の制作見本。写真は生成画像です。</small></footer>
+</section>
+</div></main>
+<script type="module" src="door-review/door-v4.mjs?v=v4f"></script><script type="module" src="door-review/bakery-v4.mjs?v=v4f"></script></body></html>
